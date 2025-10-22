@@ -7,7 +7,7 @@ from .iodd_features import Features
 from .iodd_physical_layer import PhysicalLayer
 from .ioddXmlDoc import IoddXmlDoc
 
-from iolink_utils.definitions.m_sequence_capability import ODOctetCount
+from iolink_utils.definitions.onRequestDataOctetCount import ODOctetCount
 
 
 class Iodd:

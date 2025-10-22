@@ -1,7 +1,7 @@
 import pytest
 from pprint import pprint
 from iolink_utils.iodd.iodd import Iodd
-from iolink_utils.octetDecoder.processDataDecoder import BinaryProcessDataHelper
+from iolink_utils.octetDecoder.processDataDecoder import createPDInDecoderClass, createPDOutDecoderClass
 
 def test_decoder_ConditionalProcessDataDevice():
     """
@@ -93,7 +93,7 @@ def test_decoder_ConditionalProcessDataDevice():
     ###
     # condition 0
     ###
-    PDInDecoder_0 = BinaryProcessDataHelper.createPDInDecoderClass(my_iodd.process_data_definition, 0)
+    PDInDecoder_0 = createPDInDecoderClass(my_iodd.process_data_definition, 0)
     decoder = PDInDecoder_0()
 
     assert ['TN_PI_X_PDin_DetectionValue', 'TN_PI_X_PDin_TemperatureValue'] == list(decoder.__dict__.keys()) # checks attributes
@@ -107,7 +107,7 @@ def test_decoder_ConditionalProcessDataDevice():
     ###
     # condition 2
     ###
-    PDInDecoder_2 = BinaryProcessDataHelper.createPDInDecoderClass(my_iodd.process_data_definition, 2)
+    PDInDecoder_2 = createPDInDecoderClass(my_iodd.process_data_definition, 2)
     decoder = PDInDecoder_2()
 
     assert ['TN_PI_X_PDin_DetectionValue', 'TN_V_PD_CounterValue', 'TN_PI_X_PDin_StatusSig1', 'TN_PI_X_PDin_StatusSig2'] == \

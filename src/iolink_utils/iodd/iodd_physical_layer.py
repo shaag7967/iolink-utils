@@ -1,5 +1,5 @@
 from enum import IntEnum, EnumMeta
-from iolink_utils.definitions.m_sequence_capability import MSequenceCapability
+from iolink_utils.octetDecoder.mSequenceCapability import MSequenceCapability
 
 
 class AutoNameConvertMeta(EnumMeta):

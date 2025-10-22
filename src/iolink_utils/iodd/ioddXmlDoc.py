@@ -9,7 +9,7 @@ from .iodd_version import Version
 from .iodd_features import Features
 from .iodd_physical_layer import PhysicalLayer, BitRate
 from iolink_utils.definitions.profiles import ProfileID
-from iolink_utils.definitions.m_sequence_capability import MSequenceCapability
+from iolink_utils.octetDecoder.mSequenceCapability import MSequenceCapability
 
 
 class IoddXmlDoc:
