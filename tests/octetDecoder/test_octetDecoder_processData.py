@@ -1,4 +1,5 @@
 import pytest
+from pathlib import Path
 from pprint import pprint
 from iolink_utils.iodd.iodd import Iodd
 from iolink_utils.octetDecoder.processDataDecoder import createDecoderClass_PDIn, createDecoderClass_PDOut
@@ -89,7 +90,8 @@ def test_decoder_ConditionalProcessDataDevice():
                'name': ('TN_PO_PDout2', 'PD Output - Set 2')}}}
     :return:
     """
-    my_iodd = Iodd('./iodd/IODDViewer1.4_Examples/IO-Link-22-ConditionalProcessDataDevice-20211215-IODD1.1.xml')
+    test_dir = Path(__file__).parent
+    my_iodd = Iodd(str(test_dir.joinpath('IODDViewer1.4_Examples/IO-Link-22-ConditionalProcessDataDevice-20211215-IODD1.1.xml')))
 
     ###
     # condition 0
