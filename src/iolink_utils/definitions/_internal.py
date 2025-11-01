@@ -10,7 +10,6 @@ class MSeqPDSizeCombination:
 
     def matches(self, m_sequence_code: int, size_PDin: int, size_PDout: int) -> bool:
         match_code = m_sequence_code == self.m_sequence_code
-        match_PDin = size_PDin in self.size_PDin if type(self.size_PDin) == range else size_PDin == self.size_PDin
-        match_PDout = size_PDout in self.size_PDout if type(self.size_PDout) == range else size_PDout == self.size_PDout
+        match_PDin = size_PDin in self.size_PDin if isinstance(self.size_PDin, range) else size_PDin == self.size_PDin
+        match_PDout = size_PDout in self.size_PDout if isinstance(self.size_PDout, range) else size_PDout == self.size_PDout
         return match_code and match_PDin and match_PDout
-

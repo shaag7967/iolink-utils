@@ -3,7 +3,7 @@ from iolink_utils.exceptions import InvalidOctetValue
 
 
 class OctetDecoderBase(ctypes.BigEndianStructure):
-    """Basisklasse für Bitfeld-Strukturen mit gemeinsamen Methoden."""
+    """Base class for octet decoder (decoding a single byte)"""
     _pack_ = 1
 
     def __init__(self, value: int = 0):
@@ -11,15 +11,27 @@ class OctetDecoderBase(ctypes.BigEndianStructure):
         self.set(value)
 
     def __int__(self):
-        """Gibt den Bytewert zurück, der die Bitfelder repräsentiert."""
+        """Get underlying integer value (octet) when casting instance (e.g. int(myDecoder)"""
         return int.from_bytes(bytes(self), "big")
 
     def get(self) -> int:
-        """Alias für __int__()."""
+        """Get octet as integer value"""
         return int(self)
 
     def set(self, value: int):
-        """Setzt die Struktur basierend auf einem Bytewert."""
+        """
+        Set the underlying byte (octet) value.
+
+        Parameters
+        ----------
+        value : int
+            An integer between 0 and 255 representing the new byte value.
+
+        Raises
+        ------
+        InvalidOctetValue
+            If `value` is outside the valid byte range (0–255).
+        """
         _MAX_OCTET_VALUE = 255
         if 0 <= value <= _MAX_OCTET_VALUE:
             ctypes.memmove(ctypes.addressof(self), ctypes.byref(ctypes.c_uint8(value)), 1)
@@ -27,7 +39,7 @@ class OctetDecoderBase(ctypes.BigEndianStructure):
             raise InvalidOctetValue()
 
     def __repr__(self):
-        """Dynamische Darstellung aller Felder basierend auf _fields_."""
+        """String representation of decoded content."""
         fields_repr = ", ".join(
             f"{name}={getattr(self, name)}" for name, *_ in self._fields_
         )

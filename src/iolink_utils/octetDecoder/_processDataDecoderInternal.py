@@ -18,6 +18,7 @@ def __get_filler(bit_count: int):
     filler.reverse()
     return filler
 
+
 def __create_field_from_data_format(json_dataFormat, safetyCodeType):
     # Goes through all elements of the data format and creates fields with the specified length.
     # Sometimes we need to add a filler to bridge unused bits.
@@ -26,7 +27,7 @@ def __create_field_from_data_format(json_dataFormat, safetyCodeType):
 
     bit_offset = 0
     for element in json_dataFormat:
-        e_name = element['name'][0] # using textId as name
+        e_name = element['name'][0] #  using textId as name
         e_offset = element['bitOffset']
         e_value_type = element['data']['type']
         e_length = element['data']['bitLength']

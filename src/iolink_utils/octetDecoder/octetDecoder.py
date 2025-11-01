@@ -11,11 +11,13 @@ class MC(OctetDecoderBase):
         ("address", ctypes.c_uint8, 5)
     ]
 
+
 class CKT(OctetDecoderBase):
     _fields_ = [
         ("mSeqType", ctypes.c_uint8, 2),
         ("checksum", ctypes.c_uint8, 6)
     ]
+
 
 class CKS(OctetDecoderBase):
     _fields_ = [
@@ -23,6 +25,7 @@ class CKS(OctetDecoderBase):
         ("pdValid", ctypes.c_uint8, 1),
         ("checksum", ctypes.c_uint8, 6)
     ]
+
 
 class IService(OctetDecoderBase):
     _fields_ = [
@@ -39,12 +42,14 @@ class StatusCodeType1(OctetDecoderBase):
         ("eventCode", ctypes.c_uint8, 5)
     ]
 
+
 class StatusCodeType2(OctetDecoderBase):
     _fields_ = [
         ("details", ctypes.c_uint8, 1),
         ("unused", ctypes.c_uint8, 1),
         ("activatedEvents", ctypes.c_uint8, 6)
     ]
+
 
 class EventQualifier(OctetDecoderBase):
     _fields_ = [
@@ -53,6 +58,7 @@ class EventQualifier(OctetDecoderBase):
         ("source", ctypes.c_uint8, 1),
         ("instance", ctypes.c_uint8, 3)
     ]
+
 
 class CycleTimeOctet(OctetDecoderBase):
     """
@@ -93,48 +99,14 @@ class CycleTimeOctet(OctetDecoderBase):
             min_v, max_v = params["range"]
             if min_v <= value <= max_v:
                 self.timeBaseCode = code
-                self.multiplier = ceil(round((value - params["offset"]) / params["base"], 1)) # take next larger possible value
+                self.multiplier = ceil(round((value - params["offset"]) / params["base"], 1))
                 return
 
         raise InvalidCycleTime(f"Value {value} ms out of supported range")
 
-
-# class MinCycleTime(OctetDecoderBase):
-#     _fields_ = [
-#         ("timeBaseCode", ctypes.c_uint8, 2),
-#         ("multiplier", ctypes.c_uint8, 6)
-#     ]
-#     __params = {  # timeBaseCode: (offset, timeBase)
-#         0: (0.0, 0.1),
-#         1: (6.4, 0.4),
-#         2: (32.0, 1.6),
-#     }
-#
-#     def getTimeInMs(self) -> float:
-#         offset, timeBase = self.__params[self.timeBaseCode]
-#         return offset + (timeBase * self.multiplier)
-#
-#     def setTimeInMs(self, value: float):
-#         assert value >= 0
-#         if value == 0:
-#             self.set(0)
-#             return
-#
-#         if 0.4 <= value <= 6.3:
-#             timeBaseCode = 0
-#         elif 6.4 <= value <= 31.6:
-#             timeBaseCode = 1
-#         elif 32.0 <= value <= 132.8:
-#             timeBaseCode = 2
-#         else:
-#             raise InvalidCycleTime()
-#
-#         setattr(self, "timeBaseCode", timeBaseCode)
-#         offset, timeBase = self.__params[timeBaseCode]
-#         setattr(self, "multiplier", int(round((value - offset) / timeBase, 1)))
-
 MasterCycleTimeOctet = CycleTimeOctet
 MinCycleTimeOctet = CycleTimeOctet
+
 
 class MSequenceCapability(OctetDecoderBase):
     _fields_ = [
@@ -144,11 +116,13 @@ class MSequenceCapability(OctetDecoderBase):
         ("isduSupport", ctypes.c_uint8, 1)
     ]
 
+
 class RevisionId(OctetDecoderBase):
     _fields_ = [
         ("majorRev", ctypes.c_uint8, 4),
         ("minorRev", ctypes.c_uint8, 4)
     ]
+
 
 class ProcessDataIn(OctetDecoderBase):
     _fields_ = [
@@ -158,11 +132,10 @@ class ProcessDataIn(OctetDecoderBase):
         ("length", ctypes.c_uint8, 5)
     ]
 
+
 class ProcessDataOut(OctetDecoderBase):
     _fields_ = [
         ("byte", ctypes.c_uint8, 1),
         ("unused", ctypes.c_uint8, 2),
         ("length", ctypes.c_uint8, 5)
     ]
-
-

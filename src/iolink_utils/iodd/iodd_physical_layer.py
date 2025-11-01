@@ -17,6 +17,7 @@ class AutoNameConvertMeta(EnumMeta):
                 raise ValueError(f"Cannot convert '{value}' to {cls.__name__}")
         return super().__call__(value, *args, **kwargs)
 
+
 class BitRate(IntEnum, metaclass=AutoNameConvertMeta):
     Undefined = 0
     COM1 = 4800

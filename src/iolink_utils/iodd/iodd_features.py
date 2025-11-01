@@ -1,6 +1,7 @@
 from typing import List
 from iolink_utils.definitions.profiles import ProfileID
 
+
 class SupportedAccessLocks:
     def __init__(self):
         self.parameter = False
@@ -16,6 +17,7 @@ class SupportedAccessLocks:
             f"localParameterization={self.localParameterization}, "
             f"localUserInterface={self.localUserInterface})"
         )
+
 
 class Features:
     def __init__(self):

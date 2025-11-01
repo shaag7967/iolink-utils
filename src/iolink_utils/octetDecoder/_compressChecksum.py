@@ -34,6 +34,7 @@ lookup_8to6_compression = [
     0x20, 0x31, 0x00, 0x11, 0x30, 0x21, 0x10, 0x01,
 ]
 
+
 def __compress_8_to_6(value: int) -> int:
     """Compresses an 8-Bit checksum to 6 bits.
        Do not use this function -> use the lookup table instead
@@ -59,6 +60,7 @@ def __compress_8_to_6(value: int) -> int:
 
     compressed = (D5 << 5) | (D4 << 4) | (D3 << 3) | (D2 << 2) | (D1 << 1) | D0
     return compressed
+
 
 def __print_lookup_table():
     values = []

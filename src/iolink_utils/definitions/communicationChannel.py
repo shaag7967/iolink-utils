@@ -6,4 +6,3 @@ class CommChannel(IntEnum):
     Page       = 1,
     Diagnosis  = 2,
     ISDU       = 3
-

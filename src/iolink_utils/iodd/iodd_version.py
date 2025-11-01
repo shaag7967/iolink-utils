@@ -1,6 +1,7 @@
 import re
 from functools import total_ordering
 
+
 @total_ordering
 class Version:
     VERSION_PATTERN = re.compile(r"^V(\d+(?:\.\d+){1,7})$")

@@ -1,12 +1,11 @@
-import pytest
 from pathlib import Path
-from pprint import pprint
 from iolink_utils.iodd.iodd import Iodd
 
 
 def test_iodd_BasicDevice():
     test_dir = Path(__file__).parent
-    my_iodd = Iodd(str(test_dir.joinpath('IODDViewer1.4_Examples/IO-Link-01-BasicDevice-20211215-IODD1.1.xml')))
+    my_iodd = Iodd(str(test_dir.joinpath(
+        'IODDViewer1.4_Examples/IO-Link-01-BasicDevice-20211215-IODD1.1.xml')))
 
     assert my_iodd.filename.date.year == 2021
     assert my_iodd.filename.date.month == 12
@@ -27,9 +26,11 @@ def test_iodd_BasicDevice():
     assert len(my_iodd.process_data_definition[None]['pdOut']['dataFormat']) == 1
     assert my_iodd.process_data_definition[None]['pdOut']['bitLength'] == 8
 
+
 def test_iodd_ComplexProcessDataDevice():
     test_dir = Path(__file__).parent
-    my_iodd = Iodd(str(test_dir.joinpath('IODDViewer1.4_Examples/IO-Link-17-ComplexProcessDataDevice-20211215-IODD1.1.xml')))
+    my_iodd = Iodd(str(test_dir.joinpath(
+        'IODDViewer1.4_Examples/IO-Link-17-ComplexProcessDataDevice-20211215-IODD1.1.xml')))
 
     assert len(my_iodd.process_data_definition.keys()) == 1
     assert None in my_iodd.process_data_definition.keys()
@@ -45,9 +46,11 @@ def test_iodd_ComplexProcessDataDevice():
     assert len(my_iodd.process_data_definition[None]['pdOut']['dataFormat']) == 3
     assert my_iodd.process_data_definition[None]['pdOut']['bitLength'] == 16
 
+
 def test_iodd_ConditionalProcessDataDevice():
     test_dir = Path(__file__).parent
-    my_iodd = Iodd(str(test_dir.joinpath('IODDViewer1.4_Examples/IO-Link-22-ConditionalProcessDataDevice-20211215-IODD1.1.xml')))
+    my_iodd = Iodd(str(test_dir.joinpath(
+        'IODDViewer1.4_Examples/IO-Link-22-ConditionalProcessDataDevice-20211215-IODD1.1.xml')))
 
     assert len(my_iodd.process_data_definition.keys()) == 3
     assert [0, 1, 2] == list(my_iodd.process_data_definition.keys())
@@ -79,9 +82,11 @@ def test_iodd_ConditionalProcessDataDevice():
     assert len(my_iodd.process_data_definition[2]['pdOut']['dataFormat']) == 3
     assert my_iodd.process_data_definition[2]['pdOut']['bitLength'] == 16
 
+
 def test_iodd_DeviceVariants():
     test_dir = Path(__file__).parent
-    my_iodd = Iodd(str(test_dir.joinpath('IODDViewer1.4_Examples/IO-Link-02-DeviceVariants-20211215-IODD1.1.xml')))
+    my_iodd = Iodd(str(test_dir.joinpath(
+        'IODDViewer1.4_Examples/IO-Link-02-DeviceVariants-20211215-IODD1.1.xml')))
 
     assert my_iodd.identity.vendorId == 65535
     assert my_iodd.identity.deviceId == 2

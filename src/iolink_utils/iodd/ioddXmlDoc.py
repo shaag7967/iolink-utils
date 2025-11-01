@@ -138,8 +138,8 @@ class IoddXmlDoc:
 
     def __getTextForTextID(self, text_id: str, language: str = "en") -> str:
         root = self.iodd_xml_doc.getroot()
-        #print(etree.tostring(root, pretty_print=True).decode())
-        result = root.xpath(f"//iolink:ExternalTextCollection/iolink:PrimaryLanguage[@xml:lang='{language}']/iolink:Text[@id='{text_id}']/@value",
+        result = root.xpath(f"//iolink:ExternalTextCollection/"
+                            f"iolink:PrimaryLanguage[@xml:lang='{language}']/iolink:Text[@id='{text_id}']/@value",
                             namespaces=IoddXmlDoc.NAMESPACE)
         return result[0] if result else ""
 
@@ -151,7 +151,8 @@ class IoddXmlDoc:
                 dataTypeRef = xml_element.find("./iolink:DatatypeRef", namespaces=IoddXmlDoc.NAMESPACE)
                 if dataTypeRef is not None:
                     dataTypeId = dataTypeRef.get("datatypeId")
-                    dataTypeList = self.iodd_xml_doc.getroot().xpath(f".//iolink:Datatype[@id='{dataTypeId}']", namespaces=IoddXmlDoc.NAMESPACE)
+                    dataTypeList = self.iodd_xml_doc.getroot().xpath(f".//iolink:Datatype[@id='{dataTypeId}']",
+                                                                     namespaces=IoddXmlDoc.NAMESPACE)
                     if len(dataTypeList) == 1:
                         dataType = dataTypeList[0]
         return dataType

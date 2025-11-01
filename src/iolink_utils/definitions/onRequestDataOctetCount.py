@@ -2,6 +2,7 @@ from typing import Tuple
 from ._internal import MSeqPDSizeCombination
 from iolink_utils.exceptions import InvalidMSeqCodePDSizeCombination, InvalidMSeqCode
 
+
 class ODOctetCount:
     """ Use this class to find the number of on-request data octets for
         an m-sequence code (preoperate) or
@@ -9,7 +10,7 @@ class ODOctetCount:
     """
     # Table A.8  - M-sequence types for the PREOPERATE mode
     __preoperate = {
-        # m-sequence code: On-request data, type
+        #  m-sequence code: On-request data, type
         0: (1, 'TYPE_0'), # not recommenced
         1: (2, 'TYPE_1_2'),
         2: (8, 'TYPE_1_V'),
@@ -46,11 +47,13 @@ class ODOctetCount:
     def in_preoperate(m_sequence_code: int) -> Tuple[int, str]:
         if m_sequence_code in ODOctetCount.__preoperate:
             return ODOctetCount.__preoperate[m_sequence_code]
-        raise InvalidMSeqCode(f"Invalid m-sequence code: {m_sequence_code}. Allowed values are: {list(ODOctetCount.__preoperate.keys())}")
+        raise InvalidMSeqCode(f"Invalid m-sequence code: {m_sequence_code}. "
+                              f"Allowed values are: {list(ODOctetCount.__preoperate.keys())}")
 
     @staticmethod
     def in_operate(m_sequence_code: int, size_PDin: int, size_PDout: int) -> Tuple[int, str]:
         for combination, value in ODOctetCount.__operate.items():
             if combination.matches(m_sequence_code, size_PDin, size_PDout):
                 return value
-        raise InvalidMSeqCodePDSizeCombination(f"Invalid combination of m-sequence code and PD size ({m_sequence_code}, {size_PDin}, {size_PDout})")
+        raise InvalidMSeqCodePDSizeCombination(f"Invalid combination of m-sequence code and "
+                                               f"PD size ({m_sequence_code}, {size_PDin}, {size_PDout})")

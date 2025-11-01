@@ -1,6 +1,4 @@
-import pytest
 from pathlib import Path
-from pprint import pprint
 from iolink_utils.iodd.iodd import Iodd
 from iolink_utils.octetDecoder.processDataDecoder import createDecoderClass_PDIn, createDecoderClass_PDOut
 
@@ -91,7 +89,8 @@ def test_decoder_ConditionalProcessDataDevice():
     :return:
     """
     test_dir = Path(__file__).parent.parent
-    my_iodd = Iodd(str(test_dir.joinpath('iodd/IODDViewer1.4_Examples/IO-Link-22-ConditionalProcessDataDevice-20211215-IODD1.1.xml')))
+    my_iodd = Iodd(str(test_dir.joinpath(
+        'iodd/IODDViewer1.4_Examples/IO-Link-22-ConditionalProcessDataDevice-20211215-IODD1.1.xml')))
 
     ###
     # condition 0
@@ -113,21 +112,23 @@ def test_decoder_ConditionalProcessDataDevice():
     PDInDecoder_2 = createDecoderClass_PDIn(my_iodd.process_data_definition, 2)
     decoder = PDInDecoder_2()
 
-    assert ['TN_PI_X_PDin_DetectionValue', 'TN_V_PD_CounterValue', 'TN_PI_X_PDin_StatusSig2', 'TN_PI_X_PDin_StatusSig1'] == \
-           list(decoder.field_names) # checks attributes
+    assert ['TN_PI_X_PDin_DetectionValue',
+            'TN_V_PD_CounterValue',
+            'TN_PI_X_PDin_StatusSig2',
+            'TN_PI_X_PDin_StatusSig1'] == list(decoder.field_names) #  checks attributes
     assert decoder.TN_PI_X_PDin_DetectionValue == 0
     assert decoder.TN_V_PD_CounterValue == 0
-    assert decoder.TN_PI_X_PDin_StatusSig2 == False
-    assert decoder.TN_PI_X_PDin_StatusSig1 == False
+    assert decoder.TN_PI_X_PDin_StatusSig2 is False
+    assert decoder.TN_PI_X_PDin_StatusSig1 is False
 
     decoder = PDInDecoder_2.from_buffer_copy(b'\x00\x01\x05\x01')
     assert decoder.TN_PI_X_PDin_DetectionValue == 1
     assert decoder.TN_V_PD_CounterValue == 5
-    assert decoder.TN_PI_X_PDin_StatusSig2 == False
-    assert decoder.TN_PI_X_PDin_StatusSig1 == True
+    assert decoder.TN_PI_X_PDin_StatusSig2 is False
+    assert decoder.TN_PI_X_PDin_StatusSig1 is True
 
     decoder = PDInDecoder_2.from_buffer_copy(b'\x00\x03\x02\x02')
     assert decoder.TN_PI_X_PDin_DetectionValue == 3
     assert decoder.TN_V_PD_CounterValue == 2
-    assert decoder.TN_PI_X_PDin_StatusSig2 == True
-    assert decoder.TN_PI_X_PDin_StatusSig1 == False
+    assert decoder.TN_PI_X_PDin_StatusSig2 is True
+    assert decoder.TN_PI_X_PDin_StatusSig1 is False

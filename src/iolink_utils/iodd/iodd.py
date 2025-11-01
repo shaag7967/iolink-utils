@@ -11,7 +11,7 @@ from iolink_utils.definitions.onRequestDataOctetCount import ODOctetCount
 
 
 class Iodd:
-    def __init__(self, iodd_xml_file_path: Optional[str]=None):
+    def __init__(self, iodd_xml_file_path: Optional[str] = None):
         self.iodd_xml_doc = None
 
         self.filename = IoddFilename(iodd_xml_file_path)
@@ -65,7 +65,8 @@ class Iodd:
         :return: Tuple[preoperate, operate]
         """
         ODsize_preoperate: int = ODOctetCount.in_preoperate(self.physical_layer.m_sequence_capability.preoperateCode)[0]
-        ODsize_operate: int = ODOctetCount.in_operate(self.physical_layer.m_sequence_capability.operateCode, self.size_PDIn, self.size_PDOut)[0]
+        ODsize_operate: int = ODOctetCount.in_operate(
+            self.physical_layer.m_sequence_capability.operateCode, self.size_PDIn, self.size_PDOut)[0]
         return ODsize_preoperate, ODsize_operate
 
     def __str__(self):
