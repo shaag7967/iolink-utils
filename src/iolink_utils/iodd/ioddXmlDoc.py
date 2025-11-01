@@ -9,7 +9,7 @@ from .iodd_version import Version
 from .iodd_features import Features
 from .iodd_physical_layer import PhysicalLayer, BitRate
 from iolink_utils.definitions.profiles import ProfileID
-from iolink_utils.octetDecoder.mSequenceCapability import MSequenceCapability
+from iolink_utils.octetDecoder.octetDecoder import MSequenceCapability
 
 
 class IoddXmlDoc:
@@ -197,6 +197,7 @@ class IoddXmlDoc:
         for recordItem in xml_record_datatype.xpath(".//iolink:RecordItem", namespaces=IoddXmlDoc.NAMESPACE):
             recordItem_json = {
                 'bitOffset': int(recordItem.get("bitOffset")),
+                'subIndex': int(recordItem.get("subindex")),
                 'name': (),
                 'data': None
             }

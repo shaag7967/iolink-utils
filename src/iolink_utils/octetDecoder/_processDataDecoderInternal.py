@@ -1,35 +1,70 @@
-from iolink_utils.exceptions import InvalidProcessDataSize
+from typing import Dict
+import ctypes
 
 
-def _init(self):
-    # init with zero
-    if getattr(self, 'pdin_length', None) is not None:
-        _decodePDIn(self, bytes(int(self.pdin_length / 8)))
-    if getattr(self, 'pdout_length', None) is not None:
-        _decodePDOut(self, bytes(int(self.pdout_length / 8)))
+def __sortByBitOffset(elem: Dict):
+    return elem['bitOffset']
 
-def __decodeBinaryProcessData(self, data_format, raw_bytes):
-    for element in data_format:
-        name = element['name'][0] # using textId as name
-        offset = element['bitOffset']
-        value_type = element['data']['type']
-        length = element['data']['bitLength']
 
-        if value_type == bytearray:
-            start_pos = int(offset / 8)
-            end_pos = int(start_pos + (length / 8))
-            setattr(self, name, raw_bytes[start_pos:end_pos])
+def __get_filler(bit_count: int):
+    filler = []
+    count = int((bit_count + 8 - 1) / 8)
+
+    for idx in range(count):
+        filler_bit_count = bit_count if bit_count <= 8 else 8
+        filler.append(("unused", ctypes.c_uint8, filler_bit_count))
+        bit_count -= 8
+
+    filler.reverse()
+    return filler
+
+def __create_field_from_data_format(json_dataFormat, safetyCodeType):
+    # Goes through all elements of the data format and creates fields with the specified length.
+    # Sometimes we need to add a filler to bridge unused bits.
+    fields = []
+    field_names = []
+
+    bit_offset = 0
+    for element in json_dataFormat:
+        e_name = element['name'][0] # using textId as name
+        e_offset = element['bitOffset']
+        e_value_type = element['data']['type']
+        e_length = element['data']['bitLength']
+        e_subIndex = element['subIndex'] if 'subIndex' in element else 0
+
+        diff = e_offset - bit_offset
+        if diff > 0:
+            # element is not at end of last element -> add filler
+            filler = __get_filler(diff)
+            fields.extend(filler)
+            bit_offset += diff
+
+        if e_value_type == bytearray:
+            if e_subIndex == 127:
+                fields.append((e_name, safetyCodeType))
+            else:
+                fields.append((e_name, ctypes.c_ubyte * int(e_length / 8)))
         else:
-            value = int.from_bytes(raw_bytes, byteorder="big")
-            mask = 2 ** length - 1
-            setattr(self, name, value_type((value >> offset) & mask))
+            if e_length <= 8:
+                fields.append((e_name, ctypes.c_uint8, e_length))
+            elif e_length <= 16:
+                fields.append((e_name, ctypes.c_uint16, e_length))
+            elif e_length <= 32:
+                fields.append((e_name, ctypes.c_uint32, e_length))
+            else:
+                raise ValueError(f"Invalid length ({e_length}) for {e_name}")
+        field_names.append(e_name)
+        bit_offset += e_length
 
-def _decodePDIn(self, raw_bytes):
-    if self.pdin_length != (len(raw_bytes)*8):
-        raise InvalidProcessDataSize(f"Raw data size ({len(raw_bytes)*8} bits) does not match PDIn size ({self.pdin_length} bits).")
-    __decodeBinaryProcessData(self, self.pdin_format, raw_bytes)
+    fields.reverse()
+    field_names.reverse()
+    return fields, field_names
 
-def _decodePDOut(self, raw_bytes):
-    if self.pdout_length != (len(raw_bytes)*8):
-        raise InvalidProcessDataSize(f"Raw data size ({len(raw_bytes)*8} bits) does not match PDOut size ({self.pdout_length} bits).")
-    __decodeBinaryProcessData(self, self.pdout_format, raw_bytes)
+
+def _createPDDecoderClass(json_dataFormat, safetyCodeType):
+    json_dataFormat.sort(reverse=False, key=__sortByBitOffset)
+    fields, field_names = __create_field_from_data_format(json_dataFormat, safetyCodeType)
+
+    base = ctypes.BigEndianStructure
+    attrs = {"_pack_": 1, "_fields_": fields, "field_names": field_names}
+    return type("PDDecoder", (base,), attrs)

@@ -1,7 +1,8 @@
 import pytest
 from pprint import pprint
 from iolink_utils.iodd.iodd import Iodd
-from iolink_utils.octetDecoder.processDataDecoder import createPDInDecoderClass, createPDOutDecoderClass
+from iolink_utils.octetDecoder.processDataDecoder import createDecoderClass_PDIn, createDecoderClass_PDOut
+
 
 def test_decoder_ConditionalProcessDataDevice():
     """
@@ -93,33 +94,38 @@ def test_decoder_ConditionalProcessDataDevice():
     ###
     # condition 0
     ###
-    PDInDecoder_0 = createPDInDecoderClass(my_iodd.process_data_definition, 0)
+    PDInDecoder_0 = createDecoderClass_PDIn(my_iodd.process_data_definition, 0)
     decoder = PDInDecoder_0()
 
-    assert ['TN_PI_X_PDin_DetectionValue', 'TN_PI_X_PDin_TemperatureValue'] == list(decoder.__dict__.keys()) # checks attributes
+    assert ['TN_PI_X_PDin_DetectionValue', 'TN_PI_X_PDin_TemperatureValue'] == list(decoder.field_names) # checks attributes
     assert decoder.TN_PI_X_PDin_DetectionValue == 0
     assert decoder.TN_PI_X_PDin_TemperatureValue == 0
 
-    decoder.decodePDIn(b'\xFF\xFF\x01\xFF')
+    decoder = PDInDecoder_0.from_buffer_copy(b'\xFF\xFF\x01\xFF')
     assert decoder.TN_PI_X_PDin_DetectionValue == 65535
     assert decoder.TN_PI_X_PDin_TemperatureValue == 1
 
     ###
     # condition 2
     ###
-    PDInDecoder_2 = createPDInDecoderClass(my_iodd.process_data_definition, 2)
+    PDInDecoder_2 = createDecoderClass_PDIn(my_iodd.process_data_definition, 2)
     decoder = PDInDecoder_2()
 
-    assert ['TN_PI_X_PDin_DetectionValue', 'TN_V_PD_CounterValue', 'TN_PI_X_PDin_StatusSig1', 'TN_PI_X_PDin_StatusSig2'] == \
-           list(decoder.__dict__.keys()) # checks attributes
+    assert ['TN_PI_X_PDin_DetectionValue', 'TN_V_PD_CounterValue', 'TN_PI_X_PDin_StatusSig2', 'TN_PI_X_PDin_StatusSig1'] == \
+           list(decoder.field_names) # checks attributes
     assert decoder.TN_PI_X_PDin_DetectionValue == 0
     assert decoder.TN_V_PD_CounterValue == 0
-    assert decoder.TN_PI_X_PDin_StatusSig1 == False
     assert decoder.TN_PI_X_PDin_StatusSig2 == False
+    assert decoder.TN_PI_X_PDin_StatusSig1 == False
 
-    decoder.decodePDIn(b'\x00\x01\x05\x03')
+    decoder = PDInDecoder_2.from_buffer_copy(b'\x00\x01\x05\x01')
     assert decoder.TN_PI_X_PDin_DetectionValue == 1
     assert decoder.TN_V_PD_CounterValue == 5
+    assert decoder.TN_PI_X_PDin_StatusSig2 == False
     assert decoder.TN_PI_X_PDin_StatusSig1 == True
-    assert decoder.TN_PI_X_PDin_StatusSig2 == True
 
+    decoder = PDInDecoder_2.from_buffer_copy(b'\x00\x03\x02\x02')
+    assert decoder.TN_PI_X_PDin_DetectionValue == 3
+    assert decoder.TN_V_PD_CounterValue == 2
+    assert decoder.TN_PI_X_PDin_StatusSig2 == True
+    assert decoder.TN_PI_X_PDin_StatusSig1 == False

@@ -1,5 +1,5 @@
 from enum import IntEnum, EnumMeta
-from iolink_utils.octetDecoder.mSequenceCapability import MSequenceCapability
+from iolink_utils.octetDecoder.octetDecoder import MSequenceCapability
 
 
 class AutoNameConvertMeta(EnumMeta):
@@ -29,7 +29,7 @@ class PhysicalLayer:
         self.bitrate: BitRate = BitRate.Undefined
         self.min_cycle_time = 0
         self.sio_supported = False
-        self.m_sequence_capability: MSequenceCapability = MSequenceCapability(0)
+        self.m_sequence_capability: MSequenceCapability = MSequenceCapability()
 
     def __str__(self):
         return (

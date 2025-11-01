@@ -64,8 +64,8 @@ class Iodd:
         Returns number of on-request data octets in PREOPERATE and OPERATE
         :return: Tuple[preoperate, operate]
         """
-        ODsize_preoperate: int = ODOctetCount.in_preoperate(self.physical_layer.m_sequence_capability.preoperate_code)[0]
-        ODsize_operate: int = ODOctetCount.in_operate(self.physical_layer.m_sequence_capability.operate_code, self.size_PDIn, self.size_PDOut)[0]
+        ODsize_preoperate: int = ODOctetCount.in_preoperate(self.physical_layer.m_sequence_capability.preoperateCode)[0]
+        ODsize_operate: int = ODOctetCount.in_operate(self.physical_layer.m_sequence_capability.operateCode, self.size_PDIn, self.size_PDOut)[0]
         return ODsize_preoperate, ODsize_operate
 
     def __str__(self):

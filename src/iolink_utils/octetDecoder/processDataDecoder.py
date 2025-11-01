@@ -1,45 +1,33 @@
-from iolink_utils.exceptions import InvalidProcessDataDefinition
-from ._processDataDecoderInternal import _init, _decodePDIn, _decodePDOut
+
+from ._processDataDecoderInternal import _createPDDecoderClass
+import ctypes
 
 
-def createPDInDecoderClass(json_process_data_def, condition=None):
-    attributes = {
-        "__init__": _init
-    }
+class SafetyCodeIn(ctypes.BigEndianStructure):
+    _pack_ = 1
+    _fields_ = [
+        ("portNum", ctypes.c_uint8),
+        ("DCNT", ctypes.c_uint8, 3),
+        ("unused", ctypes.c_uint8, 2),
+        ("SDset", ctypes.c_uint8, 1),
+        ("DCommError", ctypes.c_uint8, 1),
+        ("DTimeout", ctypes.c_uint8, 1),
+        ("CRC", ctypes.c_uint32)
+    ]
 
-    pd_def = json_process_data_def[condition]
-    if 'pdIn' in pd_def:
-        cls_name = f"PDInDecoder_{pd_def['pdIn']['id']}"
-        attributes["pdin_format"] = pd_def['pdIn']['dataFormat']
-        attributes["pdin_length"] = pd_def['pdIn']['bitLength']
-        attributes["decodePDIn"] = _decodePDIn
-    else:
-        raise InvalidProcessDataDefinition(f"ProcessDataIn: key 'pdIn' not found (for condition {condition}).", json_process_data_def)
+class SafetyCodeOut(ctypes.BigEndianStructure):
+    _pack_ = 1
+    _fields_ = [
+        ("portNum", ctypes.c_uint8),
+        ("MCNT", ctypes.c_uint8, 3),
+        ("unused", ctypes.c_uint8, 3),
+        ("SetSD", ctypes.c_uint8, 1),
+        ("ChFAckReq", ctypes.c_uint8, 1),
+        ("CRC", ctypes.c_uint32)
+    ]
 
-    cls = type(
-        cls_name,
-        (object,),
-        attributes
-    )
-    return cls
+def createDecoderClass_PDIn(json_process_data_def, condition=None):
+    return _createPDDecoderClass(json_process_data_def[condition]['pdIn']['dataFormat'], SafetyCodeIn)
 
-def createPDOutDecoderClass(json_process_data_def, condition=None):
-    attributes = {
-        "__init__": _init
-    }
-
-    pd_def = json_process_data_def[condition]
-    if 'pdOut' in pd_def:
-        cls_name = f"PDOutDecoder_{pd_def['pdOut']['id']}"
-        attributes["pdout_format"] = pd_def['pdOut']['dataFormat']
-        attributes["pdout_length"] = pd_def['pdOut']['bitLength']
-        attributes["decodePDOut"] = _decodePDOut
-    else:
-        raise InvalidProcessDataDefinition(f"ProcessDataOut: key 'pdOut' not found (for condition {condition}).", json_process_data_def)
-
-    cls = type(
-        cls_name,
-        (object,),
-        attributes
-    )
-    return cls
+def createDecoderClass_PDOut(json_process_data_def, condition=None):
+    return _createPDDecoderClass(json_process_data_def[condition]['pdOut']['dataFormat'], SafetyCodeOut)

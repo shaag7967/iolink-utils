@@ -1,4 +1,4 @@
-from enum import IntEnum, EnumMeta
+from enum import IntEnum
 
 
 class ProfileID(IntEnum):
