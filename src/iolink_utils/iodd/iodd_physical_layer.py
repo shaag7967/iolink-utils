@@ -1,34 +1,11 @@
-from enum import IntEnum, EnumMeta
+from iolink_utils.definitions.bitRate import BitRate
 from iolink_utils.octetDecoder.octetDecoder import MSequenceCapability
-
-
-class AutoNameConvertMeta(EnumMeta):
-    def __call__(cls, value, *args, **kwargs):
-        if isinstance(value, str):
-            # resolve by name
-            try:
-                return cls[value]
-            except KeyError:
-                pass
-            # resolve by int string
-            try:
-                value = int(value)
-            except ValueError:
-                raise ValueError(f"Cannot convert '{value}' to {cls.__name__}")
-        return super().__call__(value, *args, **kwargs)
-
-
-class BitRate(IntEnum, metaclass=AutoNameConvertMeta):
-    Undefined = 0
-    COM1 = 4800
-    COM2 = 38400
-    COM3 = 230400
 
 
 class PhysicalLayer:
     def __init__(self):
         self.bitrate: BitRate = BitRate.Undefined
-        self.min_cycle_time = 0
+        self.min_cycle_time = 0 # TODO use class for this and display ms value
         self.sio_supported = False
         self.m_sequence_capability: MSequenceCapability = MSequenceCapability()
 

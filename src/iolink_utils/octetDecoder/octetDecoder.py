@@ -1,5 +1,7 @@
 from ._octetDecoderBase import OctetDecoderBase, ctypes
 from iolink_utils.exceptions import InvalidCycleTime, InvalidOctetValue
+from iolink_utils.definitions.communicationChannel import CommChannel
+from iolink_utils.definitions.transmissionDirection import TransmissionDirection
 from math import ceil
 
 
@@ -10,6 +12,9 @@ class MC(OctetDecoderBase):
         ("channel", ctypes.c_uint8, 2),
         ("address", ctypes.c_uint8, 5)
     ]
+
+    def __repr__(self):
+        return f"MC({TransmissionDirection(self.read).name}, channel={CommChannel(self.channel).name}, address={self.address})"
 
 
 class CKT(OctetDecoderBase):
@@ -59,7 +64,9 @@ class EventQualifier(OctetDecoderBase):
         ("instance", ctypes.c_uint8, 3)
     ]
 
-
+# TODO make class CycleTime
+# with conversion functions
+# move all ms calculation code into other class
 class CycleTimeOctet(OctetDecoderBase):
     """
     Decodes or encodes a cycle time field.

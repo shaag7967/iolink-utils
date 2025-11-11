@@ -7,7 +7,8 @@ from .iodd_documentInfo import DocumentInfo
 from .iodd_identity import Identity, DeviceVariant
 from .iodd_version import Version
 from .iodd_features import Features
-from .iodd_physical_layer import PhysicalLayer, BitRate
+from .iodd_physical_layer import PhysicalLayer
+from iolink_utils.definitions.bitRate import BitRate
 from iolink_utils.definitions.profiles import ProfileID
 from iolink_utils.octetDecoder.octetDecoder import MSequenceCapability
 
@@ -186,7 +187,7 @@ class IoddXmlDoc:
             # Simple data type
             item_json = {
                 'bitOffset': 0,
-                'data': self.__getSimpleDatatypeAsJSON(xml_dataType)
+                'data': IoddXmlDoc.__getSimpleDatatypeAsJSON(xml_dataType)
             }
             items.append(item_json)
 
@@ -208,7 +209,7 @@ class IoddXmlDoc:
 
             dataType = self.__getDatatype(recordItem)
             if dataType is not None:
-                recordItem_json['data'] = self.__getSimpleDatatypeAsJSON(dataType)
+                recordItem_json['data'] = IoddXmlDoc.__getSimpleDatatypeAsJSON(dataType)
                 items.append(recordItem_json)
 
         return items
@@ -226,7 +227,8 @@ class IoddXmlDoc:
         else:
             raise ValueError(f"Unsupported complex data type ({typeName}).")
 
-    def __getSimpleDatatypeAsJSON(self, xml_simple_datatype):
+    @staticmethod
+    def __getSimpleDatatypeAsJSON(xml_simple_datatype):
         datatype_json = {
             'type': None,
             'bitLength': 0
