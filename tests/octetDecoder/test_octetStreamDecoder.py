@@ -7,7 +7,9 @@ import logging
 
 from iolink_utils.iodd.iodd import Iodd
 from pprint import pprint
-from iolink_utils.octetDecoder.octetStreamDecoder import OctetStreamDecoder, DecoderSettings, MSeqPayloadLength, MasterMessage, DeviceMessage, BitRate
+from iolink_utils.octetDecoder.octetStreamDecoder import OctetStreamDecoder, DecoderSettings, MasterMessage, DeviceMessage
+from iolink_utils.octetDecoder.octetStreamDecoderSettings import MSeqPayloadLength
+from iolink_utils.definitions.bitRate import BitRate
 
 
 _iso_z_re = re.compile(r'^(?P<date>\d{4}-\d{2}-\d{2})T'

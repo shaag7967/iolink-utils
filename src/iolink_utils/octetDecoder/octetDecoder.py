@@ -1,8 +1,6 @@
 from ._octetDecoderBase import OctetDecoderBase, ctypes
-from iolink_utils.exceptions import InvalidCycleTime, InvalidOctetValue
 from iolink_utils.definitions.communicationChannel import CommChannel
 from iolink_utils.definitions.transmissionDirection import TransmissionDirection
-from math import ceil
 
 
 class MC(OctetDecoderBase):
@@ -64,55 +62,12 @@ class EventQualifier(OctetDecoderBase):
         ("instance", ctypes.c_uint8, 3)
     ]
 
-# TODO make class CycleTime
-# with conversion functions
-# move all ms calculation code into other class
-class CycleTimeOctet(OctetDecoderBase):
-    """
-    Decodes or encodes a cycle time field.
 
-    timeBaseCode (2 bits) and multiplier (6 bits) together encode
-    a time in milliseconds according to predefined base tables.
-    """
+class CycleTimeOctet(OctetDecoderBase):
     _fields_ = [
         ("timeBaseCode", ctypes.c_uint8, 2),
         ("multiplier", ctypes.c_uint8, 6),
     ]
-
-    _PARAMS = {
-        0: {"offset": 0.0, "base": 0.1, "range": (0.4, 6.3)},
-        1: {"offset": 6.4, "base": 0.4, "range": (6.4, 31.6)},
-        2: {"offset": 32.0, "base": 1.6, "range": (32.0, 132.8)},
-    }
-
-    def getTimeInMs(self) -> float:
-        """Return the decoded time value in milliseconds."""
-        params = self._PARAMS.get(self.timeBaseCode)
-        if not params:
-            raise InvalidOctetValue(f"Invalid timeBaseCode: {self.timeBaseCode}")
-        return round(params["offset"] + params["base"] * self.multiplier, 1)
-
-    def setTimeInMs(self, value: float) -> None:
-        """Set the encoded time fields for the given millisecond value."""
-        if value < 0:
-            raise InvalidCycleTime("Time value must be non-negative")
-
-        if value == 0:
-            self.timeBaseCode = 0
-            self.multiplier = 0
-            return
-
-        for code, params in self._PARAMS.items():
-            min_v, max_v = params["range"]
-            if min_v <= value <= max_v:
-                self.timeBaseCode = code
-                self.multiplier = ceil(round((value - params["offset"]) / params["base"], 1))
-                return
-
-        raise InvalidCycleTime(f"Value {value} ms out of supported range")
-
-MasterCycleTimeOctet = CycleTimeOctet
-MinCycleTimeOctet = CycleTimeOctet
 
 
 class MSequenceCapability(OctetDecoderBase):

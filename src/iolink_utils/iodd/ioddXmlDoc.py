@@ -215,7 +215,7 @@ class IoddXmlDoc:
         return items
 
     def __getArrayTypeAsJSON(self, xml_array_datatype):
-        pass
+        raise NotImplemented("ArrayT not implemented yet")
 
     def __getComplexDatatypeAsJSON(self, xml_complex_datatype):
         typeName = xml_complex_datatype.get(f"{{{IoddXmlDoc.NAMESPACE['xsi']}}}type")
