@@ -50,8 +50,9 @@ def test_octetStreamDecoder():
     interpreter = MessageInterpreter()
 
     # test_data = getTestData(os.path.join(os.path.dirname(__file__), 'serialdata_short.csv'))
-    # test_data = getTestData(os.path.join(os.path.dirname(__file__), 'serialdata_pre_operate.csv'))
-    test_data = getTestData(os.path.join(os.path.dirname(__file__), 'tmg_safetyCommunication.csv'))
+    # test_data = getTestData(os.path.join(os.path.dirname(__file__), 'serialdata_preoperate.csv'))
+    test_data = getTestData(os.path.join(os.path.dirname(__file__), 'serialdata_pre_operate.csv'))
+    # test_data = getTestData(os.path.join(os.path.dirname(__file__), 'tmg_safetyCommunication.csv'))
 
     line = 0
     for data in test_data:
@@ -62,10 +63,10 @@ def test_octetStreamDecoder():
         # print(line, end=' ')
         # print(data)
         message = decoder.processOctet(data['value'], data['start'], data['end'])
-        # if isinstance(message, MasterMessage):
-        #     print(message)
-        # elif isinstance(message, DeviceMessage):
-        #     print(message)
+        if isinstance(message, MasterMessage):
+            print(message)
+        elif isinstance(message, DeviceMessage):
+            print(message)
 
         commChannelMessages = interpreter.processMessage(message)
         for msg in commChannelMessages:

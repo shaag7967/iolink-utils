@@ -55,7 +55,7 @@ class TransactionDiagEventMemory:
         }
 
     def __str__(self):
-        return f"Diag EventMem: '{self.data()} ({self.start_time} {self.end_time})"
+        return f"Diag EventMem: '{self.data()}"
 
 
 class TransactionDiagEventReset:
@@ -67,7 +67,7 @@ class TransactionDiagEventReset:
         return {}
 
     def __str__(self):
-        return f"Diag Reset ({self.start_time} {self.end_time})"
+        return f"Diag Reset"
 
 
 class CommChannelDiagnosis:
@@ -117,7 +117,7 @@ class CommChannelDiagnosis:
             self.read_endTime = message.end_time
             if self.eventMemoryIndex == len(self.eventMemory):
                 self.eventMemory.append(message.od[0])
-            else:  # something is wrong TODO reset received data
+            else:  # something is wrong TODO reset received data / error handling
                 self.state = CommChannelDiagnosis.State.Idle
         elif self.state == CommChannelDiagnosis.State.ResetEventFlag:
             self.reset_endTime = message.end_time

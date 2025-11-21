@@ -43,7 +43,6 @@ class MessageInterpreter:
 
     def processMessage(self, message: Union[None, MasterMessage, DeviceMessage]) -> List[Union[TransactionPage, TransactionDiagEventMemory, TransactionDiagEventReset]]:
         if isinstance(message, MasterMessage):
-            # TODO check if last diagnose message was received -> send Diagnose Info
             self.activeChannel = CommChannel(message.mc.channel)
             self.channels[self.activeChannel].processMasterMessage(message)
         elif isinstance(message, DeviceMessage):

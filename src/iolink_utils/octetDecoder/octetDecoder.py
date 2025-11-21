@@ -22,6 +22,8 @@ class CKT(OctetDecoderBase):
         ("checksum", ctypes.c_uint8, 6)
     ]
 
+    def getWithoutChecksum(self):
+        return int(self) & 0xC0
 
 class CKS(OctetDecoderBase):
     _fields_ = [
@@ -30,6 +32,8 @@ class CKS(OctetDecoderBase):
         ("checksum", ctypes.c_uint8, 6)
     ]
 
+    def getWithoutChecksum(self):
+        return int(self) & 0xC0
 
 class IService(OctetDecoderBase):
     _fields_ = [

@@ -4,6 +4,7 @@ from datetime import datetime as dt
 from iolink_utils.octetDecoder.octetDecoder import MC, CKT, CKS
 from .octetStreamDecoderSettings import DecoderSettings
 from .octetStreamDecoderMessages import MasterMessage, DeviceMessage
+from ._compressChecksum import lookup_8to6_compression
 
 
 class MessageState(IntEnum):
@@ -26,6 +27,16 @@ class MasterMessageDecoder:
 
         self.msg: MasterMessage = MasterMessage()
 
+    def _calculateChecksum(self):
+        checksum = 0x52
+        checksum ^= self.msg.mc.get()
+        checksum ^= self.msg.ckt.getWithoutChecksum()
+        for b in self.msg.pdOut:
+            checksum ^= b
+        for b in self.msg.od:
+            checksum ^= b
+        return lookup_8to6_compression[checksum]
+
     def processOctet(self, octet, start_time: dt, end_time: dt) -> MessageState:
         if not self._isComplete():
             if self.octetCount == 0:
@@ -44,7 +55,12 @@ class MasterMessageDecoder:
 
             self.octetCount += 1
             self.msg.end_time = end_time
-        return MessageState.Finished if self._isComplete() else MessageState.Incomplete
+
+        if self._isComplete():
+            self.msg.isValid = (self.msg.ckt.checksum == self._calculateChecksum())
+            return MessageState.Finished
+        else:
+            return MessageState.Incomplete
 
     def _isComplete(self):
         return ((self.octetCount >= 2) and
@@ -63,6 +79,15 @@ class DeviceMessageDecoder:
         self.odLen: int = payloadLength.od if read == 1 else 0
         self.pdInLen: int = payloadLength.pdIn
 
+    def _calculateChecksum(self):
+        checksum = 0x52
+        for b in self.msg.od:
+            checksum ^= b
+        for b in self.msg.pdIn:
+            checksum ^= b
+        checksum ^= self.msg.cks.getWithoutChecksum()
+        return lookup_8to6_compression[checksum]
+
     def processOctet(self, octet, start_time: dt, end_time: dt) -> MessageState:
         if not self._isComplete():
             if self.octetCount == 0:
@@ -78,7 +103,11 @@ class DeviceMessageDecoder:
             self.octetCount += 1
             self.msg.end_time = end_time
 
-        return MessageState.Finished if self._isComplete() else MessageState.Incomplete
+        if self._isComplete():
+            self.msg.isValid = (self.msg.cks.checksum == self._calculateChecksum())
+            return MessageState.Finished
+        else:
+            return MessageState.Incomplete
 
     def _isComplete(self):
         return (self.octetCount == (self.pdInLen + self.odLen + 1) and
