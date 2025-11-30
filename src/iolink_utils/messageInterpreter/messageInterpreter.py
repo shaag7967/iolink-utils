@@ -1,29 +1,13 @@
-from typing import Union, Optional, List, Dict
-from datetime import datetime as dt
-
+from typing import Union, Optional, List
 
 from iolink_utils.octetDecoder.octetStreamDecoderMessages import DeviceMessage, MasterMessage
-from iolink_utils.octetDecoder.octetDecoder import (CycleTimeOctet, MSequenceCapability, RevisionId,
-                                                    ProcessDataIn, ProcessDataOut, StatusCodeType2)
-
-from iolink_utils.utils.cycleTime import CycleTime
-
 from iolink_utils.definitions.communicationChannel import CommChannel
-from iolink_utils.definitions.transmissionDirection import TransmissionDirection
-
-from .commChannelPage import CommChannelPage, TransactionPage
 from .commChannelDiagnosis import CommChannelDiagnosis, TransactionDiagEventMemory, TransactionDiagEventReset
-
+from .commChannelISDU import CommChannelISDU, TransactionISDU
+from .commChannelPage import CommChannelPage, TransactionPage
 
 
 class CommChannelProcess:
-    def processMasterMessage(self, message: MasterMessage):
-        return []
-
-    def processDeviceMessage(self, message: DeviceMessage):
-        return []
-
-class CommChannelISDU:
     def processMasterMessage(self, message: MasterMessage):
         return []
 
@@ -41,7 +25,9 @@ class MessageInterpreter:
         }
         self.activeChannel: Optional[CommChannel] = CommChannel.Process
 
-    def processMessage(self, message: Union[None, MasterMessage, DeviceMessage]) -> List[Union[TransactionPage, TransactionDiagEventMemory, TransactionDiagEventReset]]:
+    def processMessage(self, message: Union[None, MasterMessage, DeviceMessage]) -> List[
+        Union[TransactionPage, TransactionDiagEventMemory, TransactionDiagEventReset, TransactionISDU]]:
+
         if isinstance(message, MasterMessage):
             self.activeChannel = CommChannel(message.mc.channel)
             self.channels[self.activeChannel].processMasterMessage(message)

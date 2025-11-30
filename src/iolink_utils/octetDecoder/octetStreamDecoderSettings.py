@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from iolink_utils.definitions.bitRate import BitRate
+from iolink_utils.iodd.iodd import Iodd
 
 
 @dataclass(frozen=True)
@@ -25,3 +26,18 @@ class DecoderSettings:
             return self.operate
         else:
             raise ValueError(f"Invalid M-Sequence type: '{mSeqType}'")
+
+    @staticmethod
+    def fromIODD(iodd: Iodd):
+        settings: DecoderSettings = DecoderSettings()
+
+        settings.transmissionRate = iodd.physical_layer.bitrate
+        settings.startup = MSeqPayloadLength(pdOut=0, od=1, pdIn=0)
+        settings.preoperate = MSeqPayloadLength(pdOut=0,
+                                                od=iodd.size_OnRequestData[0],
+                                                pdIn=0)
+        settings.operate = MSeqPayloadLength(pdOut=iodd.size_PDOut,
+                                             od=iodd.size_OnRequestData[1],
+                                             pdIn=iodd.size_PDIn)
+
+        return settings

@@ -43,6 +43,9 @@ class OctetStreamDecoder:
         self.state = state
         self._updateTimingConstraint(self.state)
 
+    def reset(self):
+        self.state: DecodingState = DecodingState.Idle
+
     def processOctet(self, octet, start_time: dt, end_time: dt) -> Union[None, MasterMessage, DeviceMessage]:
         if self.state == DecodingState.Idle or not self._isWithinTimingConstraints(start_time):
             self.messageDecoder = MasterMessageDecoder(self.settings)
