@@ -19,8 +19,11 @@ class ISDUResponse:
         self.start_time = dt(1970, 1, 1)
         self.end_time = dt(1970, 1, 1)
 
+    def _hasExtendedLength(self):
+        return self.length == 1
+
     def _getTotalLength(self):
-        return self.length if self.length > 1 else int(self.rawData[1])  # extLength
+        return int(self.rawData[1]) if self._hasExtendedLength() else self.length
 
     def _calculateCheckByte(self) -> int:
         chk = 0

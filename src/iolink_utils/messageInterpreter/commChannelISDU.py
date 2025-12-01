@@ -60,7 +60,10 @@ class CommChannelISDU:
                 self.isduRequest.setEndTime(message.end_time)
                 self.isduRequest.appendOctets(self.flowCtrl, message.od)
 
-                self.state = CommChannelISDU.State.Request
+                if self.isduRequest.isComplete:
+                    self.state = CommChannelISDU.State.RequestFinished
+                else:
+                    self.state = CommChannelISDU.State.Request
 
         elif self.state == CommChannelISDU.State.Request:
             if self.flowCtrl.state == FlowCtrl.State.Count:
@@ -87,7 +90,11 @@ class CommChannelISDU:
 
         if self.state == CommChannelISDU.State.RequestFinished:
             self.isduRequest.setEndTime(message.end_time)
-            isduTransactions.append(TransactionISDU(str(self.isduRequest)))
+
+            transaction = TransactionISDU(str(self.isduRequest))
+            transaction.start_time = message.start_time
+            transaction.end_time = message.end_time
+            isduTransactions.append(transaction)
             self.state = CommChannelISDU.State.WaitForResponse
 
         elif self.state == CommChannelISDU.State.WaitForResponse:
@@ -99,7 +106,14 @@ class CommChannelISDU:
                     self.isduResponse.setEndTime(message.end_time)
                     self.isduResponse.appendOctets(self.flowCtrl, message.od)
 
-                    self.state = CommChannelISDU.State.Response
+                    if self.isduResponse.isComplete:
+                        transaction = TransactionISDU(str(self.isduResponse))
+                        transaction.start_time = message.start_time
+                        transaction.end_time = message.end_time
+                        isduTransactions.append(transaction)
+                        self.state = CommChannelISDU.State.Idle
+                    else:
+                        self.state = CommChannelISDU.State.Response
 
         elif self.state == CommChannelISDU.State.Response:
             if self.flowCtrl.state == FlowCtrl.State.Count:
@@ -107,7 +121,10 @@ class CommChannelISDU:
                 self.isduResponse.appendOctets(self.flowCtrl, message.od)
 
                 if self.isduResponse.isComplete:
-                    isduTransactions.append(TransactionISDU(str(self.isduResponse)))
+                    transaction = TransactionISDU(str(self.isduResponse))
+                    transaction.start_time = message.start_time
+                    transaction.end_time = message.end_time
+                    isduTransactions.append(transaction)
                     self.state = CommChannelISDU.State.Idle
 
             elif self.flowCtrl.state == FlowCtrl.State.Abort:

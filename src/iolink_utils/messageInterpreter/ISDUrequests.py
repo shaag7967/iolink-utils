@@ -19,8 +19,11 @@ class ISDURequest:
         self.start_time = dt(1970, 1, 1)
         self.end_time = dt(1970, 1, 1)
 
+    def _hasExtendedLength(self):
+        return self.length == 1
+
     def _getTotalLength(self):
-        return self.length if self.length > 1 else int(self.rawData[1])  # extLength
+        return int(self.rawData[1]) if self._hasExtendedLength() else self.length
 
     def _calculateCheckByte(self) -> int:
         chk = 0
@@ -38,6 +41,10 @@ class ISDURequest:
         if flowCtrl.state == FlowCtrl.State.Start or flowCtrl.state == FlowCtrl.State.Count:
             # TODO if same count value, replace last received data
             self.rawData.extend(requestData)
+
+            targetLength = self._getTotalLength()
+            if len(self.rawData) > targetLength:
+                self.rawData = self.rawData[:targetLength]
         self.flowCtrl = flowCtrl
 
         if len(self.rawData) == self._getTotalLength():
@@ -56,7 +63,8 @@ class ISDURequest_Write8bitIdx(ISDURequest):
         finished = super().appendOctets(flowCtrl, requestData)
 
         if finished:
-            self.index = int(self.rawData[1])
+            pos = 2 if self._hasExtendedLength() else 1
+            self.index = int(self.rawData[pos])
         return finished
 
     def __str__(self):
@@ -73,8 +81,9 @@ class ISDURequest_Write8bitIdxSub(ISDURequest):
         finished = super().appendOctets(flowCtrl, requestData)
 
         if finished:
-            self.index = int(self.rawData[1])
-            self.subIndex = int(self.rawData[2])
+            pos = 2 if self._hasExtendedLength() else 1
+            self.index = int(self.rawData[pos])
+            self.subIndex = int(self.rawData[pos+1])
         return finished
 
     def __str__(self):
@@ -91,8 +100,9 @@ class ISDURequest_Write16bitIdxSub(ISDURequest):
         finished = super().appendOctets(flowCtrl, requestData)
 
         if finished:
-            self.index = int.from_bytes(self.rawData[1:2], byteorder='big')
-            self.subIndex = int(self.rawData[3])
+            pos = 2 if self._hasExtendedLength() else 1
+            self.index = int.from_bytes(self.rawData[pos:pos+2], byteorder='big')
+            self.subIndex = int(self.rawData[pos+2])
         return finished
 
     def __str__(self):
