@@ -134,3 +134,13 @@ class ProcessDataOut(OctetDecoderBase):
         ("unused", ctypes.c_uint8, 2),
         ("length", ctypes.c_uint8, 5)
     ]
+
+
+# See Table B.10 – DataStorageIndex assignments
+class DataStorage_StateProperty(OctetDecoderBase):
+    _fields_ = [
+        ("uploadFlag", ctypes.c_uint8, 1),
+        ("reserved", ctypes.c_uint8, 3),
+        ("state", ctypes.c_uint8, 2),
+        ("reserved", ctypes.c_uint8, 1)
+    ]
