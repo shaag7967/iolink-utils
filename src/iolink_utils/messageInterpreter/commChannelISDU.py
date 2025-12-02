@@ -1,11 +1,11 @@
-from typing import Union, Optional, List, Dict
+from typing import Dict
 from datetime import datetime as dt
 from enum import IntEnum
 
 from iolink_utils.octetDecoder.octetStreamDecoderMessages import DeviceMessage, MasterMessage
 from iolink_utils.octetDecoder.octetDecoder import IService
 from iolink_utils.definitions.transmissionDirection import TransmissionDirection
-from iolink_utils.definitions.ISDU import IServiceNibble, FlowCtrl
+from .ISDU import IServiceNibble, FlowCtrl
 from .ISDUrequests import createISDURequest
 from .ISDUresponses import createISDUResponse
 

@@ -1,60 +1,11 @@
-from datetime import datetime as dt
 
 from iolink_utils.octetDecoder.octetDecoder import IService
-from iolink_utils.definitions.ISDU import IServiceNibble, FlowCtrl
+from iolink_utils.messageInterpreter.ISDU import IServiceNibble, FlowCtrl, ISDU
 
 
-class ISDURequest:
-    def __init__(self, iService: IService):
-        self.flowCtrl: FlowCtrl = FlowCtrl()
-
-        self.service = IServiceNibble(iService.service)
-        self.length = iService.length
-        self.rawData: bytearray = bytearray()
-        self.chkpdu: int = 0
-
-        self.isValid = False
-        self.isComplete = False
-
-        self.start_time = dt(1970, 1, 1)
-        self.end_time = dt(1970, 1, 1)
-
-    def _hasExtendedLength(self):
-        return self.length == 1
-
-    def _getTotalLength(self):
-        return int(self.rawData[1]) if self._hasExtendedLength() else self.length
-
-    def _calculateCheckByte(self) -> int:
-        chk = 0
-        for b in self.rawData[:-1]:  # except chkpdu which is last byte
-            chk ^= b
-        return chk
-
-    def setStartTime(self, start_time: dt):
-        self.start_time = start_time
-
-    def setEndTime(self, end_time: dt):
-        self.end_time = end_time
-
-    def appendOctets(self, flowCtrl: FlowCtrl, requestData: bytearray) -> bool:
-        if flowCtrl.state == FlowCtrl.State.Start or flowCtrl.state == FlowCtrl.State.Count:
-            # TODO if same count value, replace last received data
-            self.rawData.extend(requestData)
-
-            targetLength = self._getTotalLength()
-            if len(self.rawData) > targetLength:
-                self.rawData = self.rawData[:targetLength]
-        self.flowCtrl = flowCtrl
-
-        if len(self.rawData) == self._getTotalLength():
-            self.chkpdu = self.rawData[-1]
-            self.isValid = self.chkpdu == self._calculateCheckByte()
-            self.isComplete = True
-        return self.isComplete
 
 
-class ISDURequest_Write8bitIdx(ISDURequest):
+class ISDURequest_Write8bitIdx(ISDU):
     def __init__(self, iService: IService):
         super().__init__(iService)
         self.index: int = 0
@@ -71,7 +22,7 @@ class ISDURequest_Write8bitIdx(ISDURequest):
         return f"ISDURequest_Write8bitIdx(index={self.index} data={self.rawData.hex()})"
 
 
-class ISDURequest_Write8bitIdxSub(ISDURequest):
+class ISDURequest_Write8bitIdxSub(ISDU):
     def __init__(self, iService: IService):
         super().__init__(iService)
         self.index: int = 0
@@ -90,7 +41,7 @@ class ISDURequest_Write8bitIdxSub(ISDURequest):
         return f"ISDURequest_Write8bitIdxSub(index={self.index} subIndex={self.subIndex} data={self.rawData.hex()})"
 
 
-class ISDURequest_Write16bitIdxSub(ISDURequest):
+class ISDURequest_Write16bitIdxSub(ISDU):
     def __init__(self, iService: IService):
         super().__init__(iService)
         self.index: int = 0
@@ -111,7 +62,7 @@ class ISDURequest_Write16bitIdxSub(ISDURequest):
 
 ### READ ###
 
-class ISDURequest_Read8bitIdx(ISDURequest):
+class ISDURequest_Read8bitIdx(ISDU):
     def __init__(self, iService: IService):
         super().__init__(iService)
         self.index: int = 0
@@ -127,7 +78,7 @@ class ISDURequest_Read8bitIdx(ISDURequest):
         return f"ISDURequest_Read8bitIdx(index={self.index} data={self.rawData.hex()})"
 
 
-class ISDURequest_Read8bitIdxSub(ISDURequest):
+class ISDURequest_Read8bitIdxSub(ISDU):
     def __init__(self, iService: IService):
         super().__init__(iService)
         self.index: int = 0
@@ -145,7 +96,7 @@ class ISDURequest_Read8bitIdxSub(ISDURequest):
         return f"ISDURequest_Read8bitIdxSub(index={self.index} subIndex={self.subIndex} data={self.rawData.hex()})"
 
 
-class ISDURequest_Read16bitIdxSub(ISDURequest):
+class ISDURequest_Read16bitIdxSub(ISDU):
     def __init__(self, iService: IService):
         super().__init__(iService)
         self.index: int = 0
