@@ -60,16 +60,12 @@ def test_octetStreamDecoder():
         if data['error'] is not None:
             continue
 
-        # print(line, end=' ')
-        # print(data)
         message = decoder.processOctet(data['value'], data['start'], data['end'])
-        if isinstance(message, MasterMessage):
-            print(message)
-        elif isinstance(message, DeviceMessage):
-            print(message)
 
         commChannelMessages = interpreter.processMessage(message)
         for msg in commChannelMessages:
+            assert msg.start_time < msg.end_time
+
             if isinstance(msg, TransactionPage):
                 print(msg)
             elif isinstance(msg, TransactionDiagEventMemory):

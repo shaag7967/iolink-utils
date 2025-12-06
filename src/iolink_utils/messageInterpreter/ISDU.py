@@ -98,9 +98,9 @@ class ISDU(ABC):
         return self.isComplete
 
     @abstractmethod
-    def name(self) -> str:
+    def name(self) -> str:  # pragma: no cover
         return 'ISDU'
 
     @abstractmethod
-    def data(self) -> dict:
+    def data(self) -> dict:  # pragma: no cover
         return {}

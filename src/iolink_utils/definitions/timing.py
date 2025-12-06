@@ -45,6 +45,8 @@ def getMaxMSequenceTime(transmissionRate: BitRate, octetCountMaster: int, octetC
     :param octetCountDevice: number of octets send by device
     :return: max duration of M-sequence (master and device transmission time in microseconds)
     """
+    assert octetCountMaster >= 2
+    assert octetCountDevice >= 1
 
     return ((octetCountMaster + octetCountDevice) * 11 *  getBitTimeInUs(transmissionRate) +
             getMaxResponseTime(transmissionRate) +

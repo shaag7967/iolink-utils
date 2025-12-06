@@ -57,11 +57,15 @@ class ProfileID(IntEnum):
     MultiTeachDynamicExtension = 32786
     ObjectDetection = 32787
     QuantityDetection = 32788
+    Unknown_32789 = 32789
+    Unknown_32790 = 32790
+    Unknown_32791 = 32791
     ReservedSafety = 32800
     IOLWirelessBridge = 32816
     ExtendedIdentification = 33024
     Locator = 33025
     ProductURI = 33026
+    TeachRecommended = 33027
     BlobTransfer = 36608
 
     @classmethod

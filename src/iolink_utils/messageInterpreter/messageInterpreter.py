@@ -9,10 +9,10 @@ from .commChannelPage import CommChannelPage, TransactionPage
 
 
 class CommChannelProcess:
-    def processMasterMessage(self, message: MasterMessage):
+    def processMasterMessage(self, message: MasterMessage):  # pragma: no cover
         return []
 
-    def processDeviceMessage(self, message: DeviceMessage):
+    def processDeviceMessage(self, message: DeviceMessage):  # pragma: no cover
         return []
 
 
