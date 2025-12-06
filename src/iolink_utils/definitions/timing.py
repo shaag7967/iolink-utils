@@ -1,5 +1,6 @@
-
+from iolink_utils.exceptions import InvalidBitRate, InvalidOctetCount
 from .bitRate import BitRate
+
 
 def getBitTimeInUs(transmissionRate: BitRate) -> float:
     bitTimesInMicroSeconds = {
@@ -7,7 +8,11 @@ def getBitTimeInUs(transmissionRate: BitRate) -> float:
         BitRate.COM2: 26.04,
         BitRate.COM3: 4.34
     }
+
+    if transmissionRate not in bitTimesInMicroSeconds:
+        raise InvalidBitRate(f"Invalid BitRate: {transmissionRate}")
     return bitTimesInMicroSeconds[transmissionRate]
+
 
 def getMaxFrameTransmissionDelay_master(transmissionRate: BitRate) -> float:
     """
@@ -18,6 +23,7 @@ def getMaxFrameTransmissionDelay_master(transmissionRate: BitRate) -> float:
     """
     return getBitTimeInUs(transmissionRate) * 1
 
+
 def getMaxFrameTransmissionDelay_device(transmissionRate: BitRate) -> float:
     """
     See A.3.4 UART frame transmission delay of Devices
@@ -26,6 +32,7 @@ def getMaxFrameTransmissionDelay_device(transmissionRate: BitRate) -> float:
     :return: max allowed gap between device octets (in microseconds)
     """
     return getBitTimeInUs(transmissionRate) * 3
+
 
 def getMaxResponseTime(transmissionRate: BitRate) -> float:
     """
@@ -36,6 +43,7 @@ def getMaxResponseTime(transmissionRate: BitRate) -> float:
     """
     return getBitTimeInUs(transmissionRate) * 10
 
+
 def getMaxMSequenceTime(transmissionRate: BitRate, octetCountMaster: int, octetCountDevice: int) -> float:
     """
     See A.3.6 M-sequence time
@@ -45,12 +53,12 @@ def getMaxMSequenceTime(transmissionRate: BitRate, octetCountMaster: int, octetC
     :param octetCountDevice: number of octets send by device
     :return: max duration of M-sequence (master and device transmission time in microseconds)
     """
-    assert octetCountMaster >= 2
-    assert octetCountDevice >= 1
+    if octetCountMaster < 2:
+        raise InvalidOctetCount("Number of master octets is invalid (min expected: 2 octets)")
+    if octetCountDevice < 1:
+        raise InvalidOctetCount("Number of device octets is invalid (min expected: 1 octets)")
 
-    return ((octetCountMaster + octetCountDevice) * 11 *  getBitTimeInUs(transmissionRate) +
+    return ((octetCountMaster + octetCountDevice) * 11 * getBitTimeInUs(transmissionRate) +
             getMaxResponseTime(transmissionRate) +
-            (octetCountMaster-1) *  getMaxFrameTransmissionDelay_master(transmissionRate) +
-            (octetCountDevice-1) *  getMaxFrameTransmissionDelay_device(transmissionRate))
-
-
+            (octetCountMaster - 1) * getMaxFrameTransmissionDelay_master(transmissionRate) +
+            (octetCountDevice - 1) * getMaxFrameTransmissionDelay_device(transmissionRate))

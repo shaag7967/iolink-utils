@@ -1,6 +1,6 @@
 from enum import IntEnum
 
-
+# values and names are taken from IOL_ProfileIDOverview_V11_Mar2023.pdf and IODDs
 class ProfileID(IntEnum):
     Unknown = 0
     GenericProfiledSensor = 1
@@ -57,9 +57,9 @@ class ProfileID(IntEnum):
     MultiTeachDynamicExtension = 32786
     ObjectDetection = 32787
     QuantityDetection = 32788
-    Unknown_32789 = 32789
-    Unknown_32790 = 32790
-    Unknown_32791 = 32791
+    NoName_32789 = 32789
+    NoName_32790 = 32790
+    NoName_32791 = 32791
     ReservedSafety = 32800
     IOLWirelessBridge = 32816
     ExtendedIdentification = 33024
