@@ -5,9 +5,10 @@ from .iodd_documentInfo import DocumentInfo
 from .iodd_identity import Identity
 from .iodd_features import Features
 from .iodd_physical_layer import PhysicalLayer
-from .ioddXmlDoc import IoddXmlDoc
+from .iodd_xmlDoc import IoddXmlDoc
 
 from iolink_utils.definitions.onRequestDataOctetCount import ODOctetCount
+from iolink_utils.definitions.profiles import ProfileID
 
 
 class Iodd:
@@ -35,6 +36,9 @@ class Iodd:
         self.features = self.iodd_xml_doc.get_device_features()
         self.physical_layer = self.iodd_xml_doc.get_physical_layer()
         self.process_data_definition = self.iodd_xml_doc.get_process_data_definition()
+
+    def isSafetyDevice(self):
+        return ProfileID.SafetyDevice in self.features.profileIDs
 
     @property
     def processDataConditionValues(self):

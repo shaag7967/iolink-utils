@@ -6,6 +6,10 @@ class InvalidProcessDataSize(IOLinkUtilsException):
     """Raised if size of ProcessData is not as expected"""
 
 
+class InvalidProcessDataDefinition(IOLinkUtilsException):
+    """Raised if data format of ProcessData is not as expected/invalid"""
+
+
 class InvalidMSeqCodePDSizeCombination(IOLinkUtilsException):
     """Raised if no on-request data size could be found for the provided combination of MSeqCode and ProcessData octet count"""
 

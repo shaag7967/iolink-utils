@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Example IODD for a IO-Link Safety device with Common Profile -->
+<IODevice xmlns="http://www.io-link.com/IODD/2010/10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.io-link.com/IODD/2010/10 IODD1.1.xsd">
+	<DocumentInfo copyright="IO-Link Community" releaseDate="2025-05-08" version="V1.1.5"/>
+	<ProfileHeader>
+		<ProfileIdentification>IO Device Profile</ProfileIdentification>
+		<ProfileRevision>1.1</ProfileRevision>
+		<ProfileName>Device Profile for IO Devices</ProfileName>
+		<ProfileSource>IO-Link Consortium</ProfileSource>
+		<ProfileClassID>Device</ProfileClassID>
+		<ISO15745Reference>
+			<ISO15745Part>1</ISO15745Part>
+			<ISO15745Edition>1</ISO15745Edition>
+			<ProfileTechnology>IODD</ProfileTechnology>
+		</ISO15745Reference>
+	</ProfileHeader>
+	<ProfileBody>
+		<DeviceIdentity vendorId="65535" deviceId="4609" vendorName="IO-Link Community">
+			<VendorText textId="T_VendorText"/>
+			<VendorUrl textId="T_VendorUrl"/>
+			<VendorLogo name="IO-Link-logo.png"/>
+			<DeviceName textId="T_DeviceName"/>
+			<DeviceFamily textId="T_DeviceFamily"/>
+			<DeviceVariantCollection>
+				<DeviceVariant productId="IOLS_Example" deviceSymbol="IO-Link-Safety-pic.png" deviceIcon="IO-Link-Safety-icon.png">
+					<Name textId="TN_ProductName"/>
+					<Description textId="TD_ProductDescr"/>
+				</DeviceVariant>
+			</DeviceVariantCollection>
+		</DeviceIdentity>
+		<DeviceFunction>
+			<!-- profileCharacteristic: -->
+			<!-- 0x4000 Identification and Diagnosis -->
+			<!-- 0x4001 IO-Link Safety -->
+			<Features blockParameter="true" dataStorage="true" profileCharacteristic="16384 16385">
+				<SupportedAccessLocks parameter="false" dataStorage="false" localParameterization="false" localUserInterface="false"/>
+			</Features>
+			<DatatypeCollection>
+				<Datatype id="D_FSP_PI" xsi:type="RecordT" bitLength="112" subindexAccessSupported="false">
+					<!-- Technology specific safety process data have subindex 1..126 -->
+					<!-- Datatype order for subindices is: boolean, integer16, integer32 -->
+					<!-- Boolean array  -->
+					<!-- There may be no gaps between the booleans, but the last octet may contain less than eight booleans. -->
+					<RecordItem subindex="1" bitOffset="104">
+						<SimpleDatatype xsi:type="BooleanT">
+							<SingleValue value="false">
+								<Name textId="TN_SV_FST_X_State_inactive"/>
+							</SingleValue>
+							<SingleValue value="true">
+								<Name textId="TN_SV_FST_X_State_active"/>
+							</SingleValue>
+						</SimpleDatatype>
+						<Name textId="TN_V_FST_X_State_1"/>
+						<Description textId="TD_V_FST_X_State"/>
+					</RecordItem>
+					<RecordItem subindex="2" bitOffset="105">
+						<SimpleDatatype xsi:type="BooleanT">
+							<SingleValue value="false">
+								<Name textId="TN_SV_FST_X_State_inactive"/>
+							</SingleValue>
+							<SingleValue value="true">
+								<Name textId="TN_SV_FST_X_State_active"/>
+							</SingleValue>
+						</SimpleDatatype>
+						<Name textId="TN_V_FST_X_State_2"/>
+						<Description textId="TD_V_FST_X_State"/>
+					</RecordItem>
+					<RecordItem subindex="3" bitOffset="106">
+						<SimpleDatatype xsi:type="BooleanT">
+							<SingleValue value="false">
+								<Name textId="TN_SV_FST_X_State_inactive"/>
+							</SingleValue>
+							<SingleValue value="true">
+								<Name textId="TN_SV_FST_X_State_active"/>
+							</SingleValue>
+						</SimpleDatatype>
+						<Name textId="TN_V_FST_X_State_3"/>
+						<Description textId="TD_V_FST_X_State"/>
+					</RecordItem>
+					<RecordItem subindex="4" bitOffset="107">
+						<SimpleDatatype xsi:type="BooleanT">
+							<SingleValue value="false">
+								<Name textId="TN_SV_FST_X_State_inactive"/>
+							</SingleValue>
+							<SingleValue value="true">
+								<Name textId="TN_SV_FST_X_State_active"/>
+							</SingleValue>
+						</SimpleDatatype>
+						<Name textId="TN_V_FST_X_State_4"/>
+						<Description textId="TD_V_FST_X_State"/>
+					</RecordItem>
+					<RecordItem subindex="5" bitOffset="108">
+						<SimpleDatatype xsi:type="BooleanT">
+							<SingleValue value="false">
+								<Name textId="TN_SV_FST_X_State_inactive"/>
+							</SingleValue>
+							<SingleValue value="true">
+								<Name textId="TN_SV_FST_X_State_active"/>
+							</SingleValue>
+						</SimpleDatatype>
+						<Name textId="TN_V_FST_X_State_5"/>
+						<Description textId="TD_V_FST_X_State"/>
+					</RecordItem>
+					<RecordItem subindex="6" bitOffset="109">
+						<SimpleDatatype xsi:type="BooleanT">
+							<SingleValue value="false">
+								<Name textId="TN_SV_FST_X_State_inactive"/>
+							</SingleValue>
+							<SingleValue value="true">
+								<Name textId="TN_SV_FST_X_State_active"/>
+							</SingleValue>
+						</SimpleDatatype>
+						<Name textId="TN_V_FST_X_State_6"/>
+						<Description textId="TD_V_FST_X_State"/>
+					</RecordItem>
+					<RecordItem subindex="7" bitOffset="110">
+						<SimpleDatatype xsi:type="BooleanT">
+							<SingleValue value="false">
+								<Name textId="TN_SV_FST_X_State_inactive"/>
+							</SingleValue>
+							<SingleValue value="true">
+								<Name textId="TN_SV_FST_X_State_active"/>
+							</SingleValue>
+						</SimpleDatatype>
+						<Name textId="TN_V_FST_X_State_7"/>
+						<Description textId="TD_V_FST_X_State"/>
+					</RecordItem>
+					<RecordItem subindex="8" bitOffset="111">
+						<SimpleDatatype xsi:type="BooleanT">
+							<SingleValue value="false">
+								<Name textId="TN_SV_FST_X_State_inactive"/>
+							</SingleValue>
+							<SingleValue value="true">
+								<Name textId="TN_SV_FST_X_State_active"/>
+							</SingleValue>
+						</SimpleDatatype>
+						<Name textId="TN_V_FST_X_State_8"/>
+						<Description textId="TD_V_FST_X_State"/>
+					</RecordItem>
+					<RecordItem subindex="9" bitOffset="96">
+						<SimpleDatatype xsi:type="BooleanT">
+							<SingleValue value="false">
+								<Name textId="TN_SV_FST_X_State_inactive"/>
+							</SingleValue>
+							<SingleValue value="true">
+								<Name textId="TN_SV_FST_X_State_active"/>
+							</SingleValue>
+						</SimpleDatatype>
+						<Name textId="TN_V_FST_X_State_9"/>
+						<Description textId="TD_V_FST_X_State"/>
+					</RecordItem>
+					<RecordItem subindex="10" bitOffset="97">
+						<SimpleDatatype xsi:type="BooleanT">
+							<SingleValue value="false">
+								<Name textId="TN_SV_FST_X_State_inactive"/>
+							</SingleValue>
+							<SingleValue value="true">
+								<Name textId="TN_SV_FST_X_State_active"/>
+							</SingleValue>
+						</SimpleDatatype>
+						<Name textId="TN_V_FST_X_State_10"/>
+						<Description textId="TD_V_FST_X_State"/>
+					</RecordItem>
+					<RecordItem subindex="11" bitOffset="98">
+						<SimpleDatatype xsi:type="BooleanT">
+							<SingleValue value="false">
+								<Name textId="TN_SV_FST_X_State_inactive"/>
+							</SingleValue>
+							<SingleValue value="true">
+								<Name textId="TN_SV_FST_X_State_active"/>
+							</SingleValue>
+						</SimpleDatatype>
+						<Name textId="TN_V_FST_X_State_11"/>
+						<Description textId="TD_V_FST_X_State"/>
+					</RecordItem>
+					<RecordItem subindex="12" bitOffset="99">
+						<SimpleDatatype xsi:type="BooleanT">
+							<SingleValue value="false">
+								<Name textId="TN_SV_FST_X_State_inactive"/>
+							</SingleValue>
+							<SingleValue value="true">
+								<Name textId="TN_SV_FST_X_State_active"/>
+							</SingleValue>
+						</SimpleDatatype>
+						<Name textId="TN_V_FST_X_State_12"/>
+						<Description textId="TD_V_FST_X_State"/>
+					</RecordItem>
+					<RecordItem subindex="13" bitOffset="100">
+						<SimpleDatatype xsi:type="BooleanT">
+							<SingleValue value="false">
+								<Name textId="TN_SV_FST_X_State_inactive"/>
+							</SingleValue>
+							<SingleValue value="true">
+								<Name textId="TN_SV_FST_X_State_active"/>
+							</SingleValue>
+						</SimpleDatatype>
+						<Name textId="TN_V_FST_X_State_13"/>
+						<Description textId="TD_V_FST_X_State"/>
+					</RecordItem>
+					<!-- Integer16 values -->
+					<!-- Integer values always are aligned to byte borders. -->
+					<RecordItem subindex="14" bitOffset="80">
+						<SimpleDatatype xsi:type="IntegerT" bitLength="16"/>
+						<Name textId="TN_V_FST_X_Integer16Value"/>
+						<Description textId="TD_V_FST_X_Integer16Value"/>
+					</RecordItem>
+					<!-- Safety Code has fixed subindex 127 -->
+					<RecordItem subindex="127" bitOffset="32">
+						<SimpleDatatype xsi:type="OctetStringT" fixedLength="6"/>
+						<Name textId="TN_V_FSP_SafetyCode"/>
+						<Description textId="TD_V_FSP_SafetyCode"/>
+					</RecordItem>
+					<!-- Non-safety process data has subindex 128..255 -->
+					<RecordItem subindex="128" bitOffset="0">
+						<SimpleDatatype xsi:type="UIntegerT" bitLength="32"/>
+						<Name textId="TN_V_X_Revolutions"/>
+						<Description textId="TD_V_X_Revolutions"/>
+					</RecordItem>
+				</Datatype>
+				<Datatype id="D_FSP_PO" xsi:type="RecordT" bitLength="48" subindexAccessSupported="false">
+					<!-- Technology specific safety process data have subindex 1..126 -->
+					<!-- Datatype order for subindices is: boolean, integer16, integer32 -->
+					<!-- Safety Code has fixed subindex 127 -->
+					<RecordItem subindex="127" bitOffset="0">
+						<SimpleDatatype xsi:type="OctetStringT" fixedLength="6"/>
+						<Name textId="TN_V_FSP_SafetyCode"/>
+						<Description textId="TD_V_FSP_SafetyCode"/>
+					</RecordItem>
+					<!-- Non-safety process data has subindex 128..255 -->
+				</Datatype>
+				<Datatype id="D_FSP_Authenticity" xsi:type="RecordT" bitLength="88" subindexAccessSupported="false">
+					<RecordItem subindex="1" bitOffset="56">
+						<SimpleDatatype xsi:type="UIntegerT" bitLength="32"/>
+						<Name textId="TN_V_FSP_Authenticity_1"/>
+						<Description textId="TD_V_FSP_Authenticity_1"/>
+					</RecordItem>
+					<RecordItem subindex="2" bitOffset="24">
+						<SimpleDatatype xsi:type="UIntegerT" bitLength="32"/>
+						<Name textId="TN_V_FSP_Authenticity_2"/>
+						<Description textId="TD_V_FSP_Authenticity_2"/>
+					</RecordItem>
+					<RecordItem subindex="3" bitOffset="16">
+						<SimpleDatatype xsi:type="UIntegerT" bitLength="8"/>
+						<Name textId="TN_V_FSP_Port"/>
+						<Description textId="TD_V_FSP_Port"/>
+					</RecordItem>
+					<RecordItem subindex="4" bitOffset="0">
+						<SimpleDatatype xsi:type="UIntegerT" bitLength="16"/>
+						<Name textId="TN_V_FSP_AuthentCRC"/>
+						<Description textId="TD_V_FSP_AuthentCRC"/>
+					</RecordItem>
+				</Datatype>
+				<Datatype id="D_FSP_Protocol" xsi:type="RecordT" bitLength="96" subindexAccessSupported="false">
+					<RecordItem subindex="1" bitOffset="88">
+						<SimpleDatatype xsi:type="UIntegerT" bitLength="8">
+							<SingleValue value="1"/>
+						</SimpleDatatype>
+						<Name textId="TN_V_FSP_ProtVersion"/>
+						<Description textId="TD_V_FSP_ProtVersion"/>
+					</RecordItem>
+					<RecordItem subindex="2" bitOffset="80">
+						<SimpleDatatype xsi:type="UIntegerT" bitLength="8">
+							<!-- Which of these SingleValues is supported is device specific. Only one shall be referenced. -->
+							<!--SingleValue value="1">
+								<Name textId="TN_SV_FSP_ProtMode_crc16"/>
+							</SingleValue-->
+							<SingleValue value="2">
+								<Name textId="TN_SV_FSP_ProtMode_crc32"/>
+							</SingleValue>
+						</SimpleDatatype>
+						<Name textId="TN_V_FSP_ProtMode"/>
+						<Description textId="TD_V_FSP_ProtMode"/>
+					</RecordItem>
+					<RecordItem subindex="3" bitOffset="64">
+						<SimpleDatatype xsi:type="UIntegerT" bitLength="16">
+							<!-- Which ValueRange is supported is device specific (but the lowerValue must be >0) -->
+							<ValueRange lowerValue="100" upperValue="5000"/>
+						</SimpleDatatype>
+						<Name textId="TN_V_FSP_Watchdog"/>
+						<Description textId="TD_V_FSP_Watchdog"/>
+					</RecordItem>
+					<RecordItem subindex="4" bitOffset="48">
+						<SimpleDatatype xsi:type="UIntegerT" bitLength="16"/>
+						<Name textId="TN_V_FSP_IO_StructCRC"/>
+						<Description textId="TD_V_FSP_IO_StructCRC"/>
+					</RecordItem>
+					<RecordItem subindex="5" bitOffset="16">
+						<SimpleDatatype xsi:type="UIntegerT" bitLength="32"/>
+						<Name textId="TN_V_FSP_TechParCRC"/>
+						<Description textId="TD_V_FSP_TechParCRC"/>
+					</RecordItem>
+					<RecordItem subindex="6" bitOffset="0">
+						<SimpleDatatype xsi:type="UIntegerT" bitLength="16"/>
+						<Name textId="TN_V_FSP_ProtParCRC"/>
+						<Description textId="TD_V_FSP_ProtParCRC"/>
+					</RecordItem>
+				</Datatype>
+			</DatatypeCollection>
+			<VariableCollection>
+				<StdVariableRef id="V_DirectParameters_1"/>
+				<StdVariableRef id="V_SystemCommand">
+					<StdSingleValueRef value="129"/>
+					<StdSingleValueRef value="131"/>
+					<SingleValue value="252">
+						<Name textId="TN_X_SystemCommand_TestEvent1Appear"/>
+					</SingleValue>
+					<SingleValue value="253">
+						<Name textId="TN_X_SystemCommand_TestEvent1Disappear"/>
+					</SingleValue>
+					<SingleValue value="254">
+						<Name textId="TN_X_SystemCommand_TestEvent2Appear"/>
+					</SingleValue>
+					<SingleValue value="255">
+						<Name textId="TN_X_SystemCommand_TestEvent2Disappear"/>
+					</SingleValue>
+				</StdVariableRef>
+				<StdVariableRef id="V_VendorName" defaultValue="IO-Link Community"/>
+				<StdVariableRef id="V_VendorText" defaultValue="www.io-link.com"/>
+				<StdVariableRef id="V_ProductName" defaultValue="IOLS Device - Example"/>
+				<StdVariableRef id="V_ProductID" defaultValue="IOLS_Example"/>
+				<StdVariableRef id="V_ProductText" defaultValue="IO-Link Safety Device - Example"/>
+				<StdVariableRef id="V_SerialNumber"/>
+				<StdVariableRef id="V_HardwareRevision"/>
+				<StdVariableRef id="V_FirmwareRevision"/>
+				<StdVariableRef id="V_ApplicationSpecificTag" defaultValue="***"/>
+				<StdVariableRef id="V_DeviceStatus"/>
+				<StdVariableRef id="V_DetailedDeviceStatus" fixedLengthRestriction="4"/>
+				<StdVariableRef id="V_ProcessDataInput"/>
+				<StdVariableRef id="V_ProcessDataOutput"/>
+				<Variable id="V_CP_FunctionTag" index="25" accessRights="rw" defaultValue="***">
+					<Datatype xsi:type="StringT" fixedLength="32" encoding="UTF-8"/>
+					<Name textId="TN_V_CP_FunctionTag"/>
+					<Description textId="TD_V_CP_FunctionTag"/>
+				</Variable>
+				<Variable id="V_CP_LocationTag" index="26" accessRights="rw" defaultValue="***">
+					<Datatype xsi:type="StringT" fixedLength="32" encoding="UTF-8"/>
+					<Name textId="TN_V_CP_LocationTag"/>
+					<Description textId="TD_V_CP_LocationTag"/>
+				</Variable>
+				<!-- Non-Safety (Standard) Parameter example -->
+				<Variable index="64" id="V_X_NonSafetyParameter" accessRights="rw" defaultValue="123">
+					<Datatype xsi:type="IntegerT" bitLength="16"/>
+					<Name textId="TN_V_X_NonSafetyParameter"/>
+					<Description textId="TD_V_X_NonSafetyParameter"/>
+				</Variable>
+				<!-- FS Technology Parameter example -->
+				<Variable index="65" id="V_FST_X_DiscrepancyTime" accessRights="rw" defaultValue="0">
+					<Datatype xsi:type="UIntegerT" bitLength="16"/>
+					<Name textId="TN_V_FST_X_DiscrepancyTime"/>
+					<Description textId="TD_V_FST_X_DiscrepancyTime"/>
+				</Variable>
+				<Variable index="66" id="V_FST_X_Filter" accessRights="rw" defaultValue="4">
+					<Datatype xsi:type="UIntegerT" bitLength="16"/>
+					<Name textId="TN_V_FST_X_Filter"/>
+					<Description textId="TD_V_FST_X_Filter"/>
+				</Variable>
+				<Variable index="16896" id="V_FSP_Authenticity" accessRights="rw">
+					<DatatypeRef datatypeId="D_FSP_Authenticity"/>
+					<RecordItemInfo subindex="1" defaultValue="0"/>
+					<RecordItemInfo subindex="2" defaultValue="0"/>
+					<RecordItemInfo subindex="3" defaultValue="0"/>
+					<RecordItemInfo subindex="4" defaultValue="0"/>
+					<Name textId="TN_V_FSP_Authenticity"/>
+					<Description textId="TD_V_FSP_Authenticity"/>
+				</Variable>
+				<Variable index="16897" id="V_FSP_Protocol" accessRights="rw">
+					<DatatypeRef datatypeId="D_FSP_Protocol"/>
+					<!-- FSP_ProtVersion: 1= valid -->
+					<RecordItemInfo subindex="1" defaultValue="1"/>
+					<!-- FSP_ProtMode: 1  (16 bit CRC) or 2 (32 bit CRC)= valid -->
+					<RecordItemInfo subindex="2" defaultValue="2"/>
+					<!-- FSP_Watchdog: 1 .. 65535 = valid -->
+					<RecordItemInfo subindex="3" defaultValue="100"/>
+					<!-- FSP_IO_StructCRC: = valid -->
+					<RecordItemInfo subindex="4" defaultValue="39464"/>
+					<!-- FSP_TechParCRC: 0= invalid -->
+					<RecordItemInfo subindex="5" defaultValue="1005197930"/>
+					<!-- FSP_ProtParCRC: 0= invalid -->
+					<RecordItemInfo subindex="6" defaultValue="6123"/>
+					<Name textId="TN_V_FSP_Protocol"/>
+					<Description textId="TD_V_FSP_Protocol"/>
+				</Variable>
+				<!-- Note: Variable FSP_VerifyRecord (index="16898") shall not be describedin the IODD. -->
+				<Variable id="V_FSP_TimeToReady" index="16912" accessRights="ro" defaultValue="10">
+					<!-- resolution 10 ms -->
+					<Datatype xsi:type="UIntegerT" bitLength="16"/>
+					<Name textId="TN_V_FSP_TimeToReady"/>
+					<Description textId="TD_V_FSP_TimeToReady"/>
+				</Variable>
+				<Variable id="V_FSP_MinShutDownTime" index="16913" accessRights="ro" defaultValue="100">
+					<!-- resolution 10 ms -->
+					<Datatype xsi:type="UIntegerT" bitLength="16"/>
+					<Name textId="TN_V_FSP_MinShutDownTime"/>
+					<Description textId="TD_V_FSP_MinShutDownTime"/>
+				</Variable>
+				<Variable id="V_FSP_ParamDescCRC" index="16914" accessRights="ro" defaultValue="908490345">
+					<Datatype xsi:type="UIntegerT" bitLength="32"/>
+					<Name textId="TN_V_FSP_ParamDescCRC"/>
+					<Description textId="TD_V_FSP_ParamDescCRC"/>
+				</Variable>
+				<Variable id="V_FSP_WCDT" index="16915" accessRights="ro" defaultValue="10">
+					<!-- in ms -->
+					<Datatype xsi:type="UIntegerT" bitLength="16"/>
+					<Name textId="TN_V_FSP_WCDT"/>
+					<Description textId="TD_V_FSP_WCDT"/>
+				</Variable>
+				<Variable id="V_FSP_OFDT" index="16916" accessRights="ro" defaultValue="10">
+					<!-- in ms -->
+					<Datatype xsi:type="UIntegerT" bitLength="16"/>
+					<Name textId="TN_V_FSP_OFDT"/>
+					<Description textId="TD_V_FSP_OFDT"/>
+				</Variable>
+			</VariableCollection>
+			<ProcessDataCollection>
+				<ProcessData id="P_FSP_ProcessData">
+					<ProcessDataIn id="PI_FSP_PDin" bitLength="112">
+						<DatatypeRef datatypeId="D_FSP_PI"/>
+						<Name textId="TN_PI_FSP_PDin"/>
+					</ProcessDataIn>
+					<ProcessDataOut id="PO_FSP_PDout" bitLength="48">
+						<DatatypeRef datatypeId="D_FSP_PO"/>
+						<Name textId="TN_PO_FSP_PDout"/>
+					</ProcessDataOut>
+				</ProcessData>
+			</ProcessDataCollection>
+			<EventCollection>
+				<!-- 0x5000 Error: Device hardware fault - Device exchange -->
+				<StdEventRef code="20480"/>
+				<!-- 0x5010 Error: Component malfunction - Repair or exchange -->
+				<StdEventRef code="20496"/>
+				<!-- 0x5110 Warning: Primary supply voltage overrun - Check tolerance  -->
+				<StdEventRef code="20752"/>
+				<!-- 0x5111 Warning: Primary supply voltage underrun - Check tolerance -->
+				<StdEventRef code="20753"/>
+				<!-- 0x8DFE Error: Test event error -->
+				<Event code="36350" type="Error">
+					<Name textId="TN_EV_X_Error_8DFE_Test1"/>
+					<Description textId="TD_EV_X_Error_8DFE_Test1"/>
+				</Event>
+				<!-- 0x8DFF Warning: Test event warning -->
+				<Event code="36351" type="Warning">
+					<Name textId="TN_EV_X_Warning_8DFF_Test2"/>
+					<Description textId="TD_EV_X_Warning_8DFF_Test2"/>
+				</Event>
+				<!-- Safety Events -->
+				<Event code="45056" type="Notification">
+					<Name textId="TN_EV_FSP_TransmissionError_CRCSignature"/>
+				</Event>
+				<Event code="45057" type="Notification">
+					<Name textId="TN_EV_FSP_TransmissionError_Counter"/>
+				</Event>
+				<Event code="45058" type="Error">
+					<Name textId="TN_EV_FSP_TransmissionError_Timeout"/>
+				</Event>
+				<Event code="45059" type="Error">
+					<Name textId="TN_EV_FSP_UnexpectedAuthenticationCode"/>
+				</Event>
+				<Event code="45060" type="Error">
+					<Name textId="TN_EV_FSP_UnexpectedAuthenticationPort"/>
+				</Event>
+				<Event code="45061" type="Error">
+					<Name textId="TN_EV_FSP_Incorrect_AuthentCRC"/>
+				</Event>
+				<Event code="45062" type="Error">
+					<Name textId="TN_EV_FSP_Incorrect_ProtParCRC"/>
+				</Event>
+				<Event code="45063" type="Error">
+					<Name textId="TN_EV_FSP_Incorrect_TechParCRC"/>
+				</Event>
+				<Event code="45064" type="Error">
+					<Name textId="TN_EV_FSP_Incorrect_IO_StructCRC"/>
+				</Event>
+				<Event code="45065" type="Error">
+					<Name textId="TN_EV_FSP_WatchdogTimeOutOfSpec"/>
+				</Event>
+				<Event code="45066" type="Error">
+					<Name textId="TN_EV_FSP_NoFSVerifyRecord"/>
+				</Event>
+			</EventCollection>
+			<UserInterface>
+				<ProcessDataRefCollection>
+					<ProcessDataRef processDataId="PI_FSP_PDin">
+						<!-- Space for technology specific functional safety PD Input Data-->
+						<ProcessDataRecordItemInfo subindex="1"/>
+						<ProcessDataRecordItemInfo subindex="2"/>
+						<ProcessDataRecordItemInfo subindex="3"/>
+						<ProcessDataRecordItemInfo subindex="4"/>
+						<ProcessDataRecordItemInfo subindex="5"/>
+						<ProcessDataRecordItemInfo subindex="6"/>
+						<ProcessDataRecordItemInfo subindex="7"/>
+						<ProcessDataRecordItemInfo subindex="8"/>
+						<ProcessDataRecordItemInfo subindex="9"/>
+						<ProcessDataRecordItemInfo subindex="10"/>
+						<ProcessDataRecordItemInfo subindex="11"/>
+						<ProcessDataRecordItemInfo subindex="12"/>
+						<ProcessDataRecordItemInfo subindex="13"/>
+						<ProcessDataRecordItemInfo subindex="14" displayFormat="Dec.2" gradient="0.01" unitCode="1342"/>
+						<!-- Safety Code -->
+						<ProcessDataRecordItemInfo subindex="127" displayFormat="Hex"/>
+						<!-- Space for technology specific non-safety PD Input Data-->
+						<ProcessDataRecordItemInfo subindex="128" displayFormat="Dec.3" gradient="0.001" unitCode="1009"/>
+					</ProcessDataRef>
+					<ProcessDataRef processDataId="PO_FSP_PDout">
+						<!-- Space for technology specific functional safety PD Output Data-->
+						<!-- Safety Code -->
+						<ProcessDataRecordItemInfo subindex="127" displayFormat="Hex"/>
+						<!-- Space for technology specific non-safety PD Output Data-->
+					</ProcessDataRef>
+				</ProcessDataRefCollection>
+				<MenuCollection>
+					<Menu id="M_OR_Ident">
+						<VariableRef variableId="V_VendorName"/>
+						<VariableRef variableId="V_VendorText"/>
+						<VariableRef variableId="V_ProductName"/>
+						<VariableRef variableId="V_ProductID"/>
+						<VariableRef variableId="V_ProductText"/>
+						<VariableRef variableId="V_SerialNumber"/>
+						<VariableRef variableId="V_FirmwareRevision"/>
+						<VariableRef variableId="V_HardwareRevision"/>
+						<VariableRef variableId="V_ApplicationSpecificTag" accessRightRestriction="ro"/>
+						<VariableRef variableId="V_CP_FunctionTag" accessRightRestriction="ro"/>
+						<VariableRef variableId="V_CP_LocationTag" accessRightRestriction="ro"/>
+					</Menu>
+					<Menu id="M_MSR_Ident">
+						<VariableRef variableId="V_VendorName"/>
+						<VariableRef variableId="V_VendorText"/>
+						<VariableRef variableId="V_ProductName"/>
+						<VariableRef variableId="V_ProductID"/>
+						<VariableRef variableId="V_ProductText"/>
+						<VariableRef variableId="V_SerialNumber"/>
+						<VariableRef variableId="V_FirmwareRevision"/>
+						<VariableRef variableId="V_HardwareRevision"/>
+						<VariableRef variableId="V_ApplicationSpecificTag"/>
+						<VariableRef variableId="V_CP_FunctionTag"/>
+						<VariableRef variableId="V_CP_LocationTag"/>
+					</Menu>
+					<Menu id="M_OR_Param_NonSafety">
+						<Name textId="TN_M_Param_NonSafety"/>
+						<VariableRef variableId="V_X_NonSafetyParameter" accessRightRestriction="ro"/>
+					</Menu>
+					<Menu id="M_OR_FST_Param">
+						<Name textId="TN_M_FST_Param"/>
+						<VariableRef variableId="V_FST_X_DiscrepancyTime" accessRightRestriction="ro" unitCode="1056"/>
+						<VariableRef variableId="V_FST_X_Filter" accessRightRestriction="ro" unitCode="1056"/>
+					</Menu>
+					<Menu id="M_OR_FSP_Param">
+						<Name textId="TN_M_FSP_Param"/>
+						<RecordItemRef variableId="V_FSP_Authenticity" subindex="1" accessRightRestriction="ro"/>
+						<RecordItemRef variableId="V_FSP_Authenticity" subindex="2" accessRightRestriction="ro"/>
+						<RecordItemRef variableId="V_FSP_Authenticity" subindex="3" accessRightRestriction="ro"/>
+						<RecordItemRef variableId="V_FSP_Authenticity" subindex="4" accessRightRestriction="ro"/>
+						<RecordItemRef variableId="V_FSP_Protocol" subindex="1" accessRightRestriction="ro"/>
+						<RecordItemRef variableId="V_FSP_Protocol" subindex="2" accessRightRestriction="ro"/>
+						<RecordItemRef variableId="V_FSP_Protocol" subindex="3" accessRightRestriction="ro" displayFormat="Dec.0" offset="0.0" gradient="1.0" unitCode="1056"/>
+						<RecordItemRef variableId="V_FSP_Protocol" subindex="4" accessRightRestriction="ro"/>
+						<RecordItemRef variableId="V_FSP_Protocol" subindex="5" accessRightRestriction="ro"/>
+						<RecordItemRef variableId="V_FSP_Protocol" subindex="6" accessRightRestriction="ro"/>
+					</Menu>
+					<Menu id="M_OMSR_FSP_Param_Aux">
+						<Name textId="TN_M_FSP_Param_Aux"/>
+						<VariableRef variableId="V_FSP_TimeToReady" displayFormat="Dec.0" offset="0.0" gradient="10.0" unitCode="1056"/>
+						<VariableRef variableId="V_FSP_MinShutDownTime" displayFormat="Dec.0" offset="0.0" gradient="10.0" unitCode="1056"/>
+						<VariableRef variableId="V_FSP_WCDT" displayFormat="Dec.0" offset="0.0" gradient="1.0" unitCode="1056"/>
+						<VariableRef variableId="V_FSP_OFDT" displayFormat="Dec.0" offset="0.0" gradient="1.0" unitCode="1056"/>
+					</Menu>
+					<Menu id="M_OR_Param">
+						<MenuRef menuId="M_OR_Param_NonSafety"/>
+						<MenuRef menuId="M_OR_FST_Param"/>
+						<MenuRef menuId="M_OR_FSP_Param"/>
+						<MenuRef menuId="M_OMSR_FSP_Param_Aux"/>
+					</Menu>
+					<Menu id="M_MSR_Param_NonSafety">
+						<Name textId="TN_M_Param_NonSafety"/>
+						<VariableRef variableId="V_X_NonSafetyParameter" unitCode="1056"/>
+					</Menu>
+					<Menu id="M_MSR_FST_Param">
+						<Name textId="TN_M_FST_Param"/>
+						<VariableRef variableId="V_FST_X_DiscrepancyTime" unitCode="1056"/>
+						<VariableRef variableId="V_FST_X_Filter" unitCode="1056"/>
+					</Menu>
+					<Menu id="M_MSR_FSP_Param">
+						<Name textId="TN_M_FSP_Param"/>
+						<RecordItemRef variableId="V_FSP_Authenticity" subindex="1"/>
+						<RecordItemRef variableId="V_FSP_Authenticity" subindex="2"/>
+						<RecordItemRef variableId="V_FSP_Authenticity" subindex="3"/>
+						<RecordItemRef variableId="V_FSP_Authenticity" subindex="4"/>
+						<RecordItemRef variableId="V_FSP_Protocol" subindex="1"/>
+						<RecordItemRef variableId="V_FSP_Protocol" subindex="2"/>
+						<RecordItemRef variableId="V_FSP_Protocol" subindex="3" displayFormat="Dec.0" offset="0.0" gradient="1.0" unitCode="1056"/>
+						<RecordItemRef variableId="V_FSP_Protocol" subindex="4"/>
+						<RecordItemRef variableId="V_FSP_Protocol" subindex="5"/>
+						<RecordItemRef variableId="V_FSP_Protocol" subindex="6"/>
+					</Menu>
+					<Menu id="M_MSR_CP_Param_ServiceFunctions">
+						<Name textId="TN_M_CP_Param_ServiceFunctions"/>
+						<VariableRef variableId="V_SystemCommand">
+							<Button buttonValue="129">
+								<Description textId="TD_STD_SystemCommand_ApplicationReset"/>
+							</Button>
+						</VariableRef>
+						<VariableRef variableId="V_SystemCommand">
+							<Button buttonValue="131">
+								<Description textId="TD_STD_SystemCommand_BackToBox"/>
+							</Button>
+						</VariableRef>
+					</Menu>
+					<Menu id="M_MSR_Param">
+						<MenuRef menuId="M_MSR_Param_NonSafety"/>
+						<MenuRef menuId="M_MSR_FST_Param"/>
+						<MenuRef menuId="M_MSR_FSP_Param"/>
+						<MenuRef menuId="M_OMSR_FSP_Param_Aux"/>
+						<MenuRef menuId="M_MSR_CP_Param_ServiceFunctions"/>
+					</Menu>
+					<Menu id="M_OMSR_Observe">
+						<VariableRef variableId="V_ProcessDataInput"/>
+						<VariableRef variableId="V_ProcessDataOutput"/>
+					</Menu>
+					<Menu id="M_OMSR_CP_Diag_DeviceStatusInfo">
+						<Name textId="TN_M_CP_Diag_DeviceStatusInfo"/>
+						<VariableRef variableId="V_DeviceStatus"/>
+						<VariableRef variableId="V_DetailedDeviceStatus"/>
+					</Menu>
+					<Menu id="M_OR_Diag">
+						<MenuRef menuId="M_OMSR_CP_Diag_DeviceStatusInfo"/>
+					</Menu>
+					<Menu id="M_MSR_Diag">
+						<MenuRef menuId="M_OMSR_CP_Diag_DeviceStatusInfo"/>
+					</Menu>
+				</MenuCollection>
+				<ObserverRoleMenuSet>
+					<IdentificationMenu menuId="M_OR_Ident"/>
+					<ParameterMenu menuId="M_OR_Param"/>
+					<ObservationMenu menuId="M_OMSR_Observe"/>
+					<DiagnosisMenu menuId="M_OR_Diag"/>
+				</ObserverRoleMenuSet>
+				<MaintenanceRoleMenuSet>
+					<IdentificationMenu menuId="M_MSR_Ident"/>
+					<ParameterMenu menuId="M_MSR_Param"/>
+					<ObservationMenu menuId="M_OMSR_Observe"/>
+					<DiagnosisMenu menuId="M_MSR_Diag"/>
+				</MaintenanceRoleMenuSet>
+				<SpecialistRoleMenuSet>
+					<IdentificationMenu menuId="M_MSR_Ident"/>
+					<ParameterMenu menuId="M_MSR_Param"/>
+					<ObservationMenu menuId="M_OMSR_Observe"/>
+					<DiagnosisMenu menuId="M_MSR_Diag"/>
+				</SpecialistRoleMenuSet>
+			</UserInterface>
+		</DeviceFunction>
+	</ProfileBody>
+	<CommNetworkProfile xsi:type="IOLinkCommNetworkProfileT" iolinkRevision="V1.1">
+		<TransportLayers>
+			<PhysicalLayer bitrate="COM3" minCycleTime="2000" sioSupported="true" mSequenceCapability="43">
+				<Connection xsi:type="M12-4ConnectionT" connectionSymbol="IO-Link-Safety-con-pic.png">
+					<ProductRef productId="IOLS_Example"/>
+					<Description textId="TD_Connection"/>
+					<Wire1 function="L+" color="BN"/>
+					<Wire2 function="Other" color="WH"/>
+					<Wire3 function="L-" color="BU"/>
+					<Wire4 function="C/Q" color="BK"/>
+				</Connection>
+			</PhysicalLayer>
+		</TransportLayers>
+		<Test>
+			<Config1 index="64" testValue="0x10,0x20"/>
+			<Config2 index="1024" testValue="0x00"/>
+			<Config3 index="24" testValue="0x31,0x32,0x33,0x34,0x35,0x36,0x37,0x38,0x39,0x40,0x41,0x42,0x43,0x44,0x45,0x46"/>
+			<Config7 index="2">
+				<EventTrigger appearValue="252" disappearValue="253"/>
+				<EventTrigger appearValue="254" disappearValue="255"/>
+			</Config7>
+		</Test>
+	</CommNetworkProfile>
+	<ExternalTextCollection>
+		<PrimaryLanguage xml:lang="en">
+			<Text id="T_VendorText" value="USE - Universal, Smart, Easy"/>
+			<Text id="T_VendorUrl" value="www.io-link.com"/>
+			<Text id="T_DeviceName" value="Safety Device"/>
+			<Text id="T_DeviceFamily" value="Safety Device Examples"/>
+			<Text id="TN_ProductName" value="Safety Device 115"/>
+			<Text id="TD_ProductDescr" value="Sample for a device with IO-Link Safety according to IO-Link Safety V1.1.5"/>
+			<Text id="TN_PI_FSP_PDin" value="PD Input"/>
+			<Text id="TN_PO_FSP_PDout" value="PD Output"/>
+			<Text id="TN_V_X_NonSafetyParameter" value="Sample Non-Safety Parameter"/>
+			<Text id="TD_V_X_NonSafetyParameter" value="Configures any functionality of the device which is not relevant for the safety function."/>
+			<Text id="TN_X_SystemCommand_TestEvent1Appear" value="Make Test Event 1 appear (0x8DFE)"/>
+			<Text id="TN_X_SystemCommand_TestEvent1Disappear" value="Make Test Event 1 disappear (0x8DFE)"/>
+			<Text id="TN_X_SystemCommand_TestEvent2Appear" value="Make Test Event 2 appear (0x8DFF)"/>
+			<Text id="TN_X_SystemCommand_TestEvent2Disappear" value="Make Test Event 2 disappear (0x8DFF)"/>
+			<Text id="TN_EV_X_Error_8DFE_Test1" value="Test Event 1 - Error"/>
+			<Text id="TD_EV_X_Error_8DFE_Test1" value="Test Event 1 has appeared by writing value 252 to index 2. Write value 253 to index 2 to make Test Event 1 disappear."/>
+			<Text id="TN_EV_X_Warning_8DFF_Test2" value="Test Event 2 - Warning"/>
+			<Text id="TD_EV_X_Warning_8DFF_Test2" value="Test Event 2 has appeared by writing value 254 to index 2. Write value 254 to index 2 to make Test Event 2 disappear."/>
+			<Text id="TN_M_Param_NonSafety" value="Non-Safety (Standard) Parameter"/>
+			<Text id="TD_Connection" value="Port type A with OSSDe. Pin 4 = C/Q/OSSD1e, Pin 2 = OSSD2e"/>
+			<!-- Common Profile -->
+			<Text id="TD_STD_SystemCommand_ApplicationReset" value="The parameters of the technology-specific application are set to default values. Identification parameters remain unchanged. An upload to the data storage of the master will be executed, if activated in the port configuration of the master."/>
+			<Text id="TD_STD_SystemCommand_BackToBox" value="The parameters of the device are set to factory default values and communication will be inhibited until the next power cycle. Note: Directly detach the device from the master port!"/>
+			<Text id="TN_V_CP_FunctionTag" value="Function Tag"/>
+			<Text id="TD_V_CP_FunctionTag" value="Possibility to mark a device with function-specific information."/>
+			<Text id="TN_V_CP_LocationTag" value="Location Tag"/>
+			<Text id="TD_V_CP_LocationTag" value="Possibility to mark a device with location-specific information."/>
+			<Text id="TN_M_CP_Param_ServiceFunctions" value="Service Functions"/>
+			<Text id="TN_M_CP_Diag_DeviceStatusInfo" value="Device Status Information"/>
+			<!-- IO-Link Safety Extension-->
+			<Text id="TN_V_FSP_Authenticity" value="Authenticity"/>
+			<Text id="TD_V_FSP_Authenticity" value="Authenticity parameters."/>
+			<Text id="TN_V_FSP_Authenticity_1" value="FSP_Authenticity_1"/>
+			<Text id="TD_V_FSP_Authenticity_1" value="&quot;A-Code&quot; from the upper level FSCP system."/>
+			<Text id="TN_V_FSP_Authenticity_2" value="FSP_Authenticity_2"/>
+			<Text id="TD_V_FSP_Authenticity_2" value="Extended &quot;A-Code&quot; from the upper level FSCP system."/>
+			<Text id="TN_V_FSP_Port" value="FSP_Port"/>
+			<Text id="TD_V_FSP_Port" value="PortNumber identifying the particular FS-Device."/>
+			<Text id="TN_V_FSP_AuthentCRC" value="FSP_AuthentCRC"/>
+			<Text id="TD_V_FSP_AuthentCRC" value="CRC-16 across authenticity parameters."/>
+			<Text id="TN_V_FSP_Protocol" value="Protocol"/>
+			<Text id="TD_V_FSP_Protocol" value="Protocol parameters."/>
+			<Text id="TN_V_FSP_ProtVersion" value="FSP_ProtVersion"/>
+			<Text id="TD_V_FSP_ProtVersion" value="Protocol version (1=current version)."/>
+			<Text id="TN_V_FSP_ProtMode" value="FSP_ProtMode"/>
+			<Text id="TD_V_FSP_ProtMode" value="Protocol mode (1=16 bit CRC, 2=32 bit CRC)"/>
+			<!--Text id="TN_SV_FSP_ProtMode_crc16" value="16 bit CRC"/-->
+			<Text id="TN_SV_FSP_ProtMode_crc32" value="32 bit CRC"/>
+			<Text id="TN_V_FSP_Watchdog" value="FSP_Watchdog"/>
+			<Text id="TD_V_FSP_Watchdog" value="Monitoring of IO update."/>
+			<Text id="TN_V_FSP_IO_StructCRC" value="FSP_IO_StructCRC"/>
+			<Text id="TD_V_FSP_IO_StructCRC" value="CRC-16 across IO structure description block."/>
+			<Text id="TN_V_FSP_TechParCRC" value="FSP_TechParCRC"/>
+			<Text id="TD_V_FSP_TechParCRC" value="Securing code across FST (technology specific parameter)."/>
+			<Text id="TN_V_FSP_ProtParCRC" value="FSP_ProtParCRC"/>
+			<Text id="TD_V_FSP_ProtParCRC" value="CRC-16 across protocol parameters"/>
+			<Text id="TN_V_FSP_ParamDescCRC" value="FSP_ParamDescCRC"/>
+			<Text id="TD_V_FSP_ParamDescCRC" value="CRC-32 signature securing authenticity, protocol, and FS I/O structure description within IODD."/>
+			<Text id="TN_V_FSP_TimeToReady" value="Time To Ready"/>
+			<Text id="TD_V_FSP_TimeToReady" value="The time that is required by the device after power on in order to be ready for communication."/>
+			<Text id="TN_V_FSP_MinShutDownTime" value="Minimum shutdown time"/>
+			<Text id="TD_V_FSP_MinShutDownTime" value="Minimum time to wait after shutdown of FS-Device."/>
+			<Text id="TN_V_FSP_WCDT" value="Worst-case Delay Time"/>
+			<Text id="TD_V_FSP_WCDT" value="Time from triggering an FS-Device (sensor) until the output shows a corresponding signal change or Process Data change. For an FS-Device (actuator) it is the time from signal change or Process Data change to the actuator's safe state."/>
+			<Text id="TN_V_FSP_OFDT" value="One Fault Delay Time"/>
+			<Text id="TD_V_FSP_OFDT" value="Time from occurrence of a fault within the FS-Device to a corresponding signal change or Process Data change"/>
+			<Text id="TN_EV_FSP_TransmissionError_CRCSignature" value="Transmission error (CRC signature)"/>
+			<Text id="TN_EV_FSP_TransmissionError_Counter" value="Transmission error (Counter)"/>
+			<Text id="TN_EV_FSP_TransmissionError_Timeout" value="Transmission error (Timeout)"/>
+			<Text id="TN_EV_FSP_UnexpectedAuthenticationCode" value="Unexpected authentication code"/>
+			<Text id="TN_EV_FSP_UnexpectedAuthenticationPort" value="Unexpected authentication port"/>
+			<Text id="TN_EV_FSP_Incorrect_AuthentCRC" value="Incorrect FSP_AuthentCRC"/>
+			<Text id="TN_EV_FSP_Incorrect_ProtParCRC" value="Incorrect FSP_ProtParCRC"/>
+			<Text id="TN_EV_FSP_Incorrect_TechParCRC" value="Incorrect FSP_TechParCRC"/>
+			<Text id="TN_EV_FSP_Incorrect_IO_StructCRC" value="Incorrect FSP_IO_StructCRC"/>
+			<Text id="TN_EV_FSP_WatchdogTimeOutOfSpec" value="Watchdog time out of specification"/>
+			<Text id="TN_EV_FSP_NoFSVerifyRecord" value="No FS_VerifyRecord received"/>
+			<Text id="TN_M_FST_Param" value="FS Technology Parameter"/>
+			<Text id="TN_M_FSP_Param" value="FS Protocol Parameter"/>
+			<Text id="TN_M_FSP_Param_Aux" value="FS Auxiliary Parameter"/>
+			<!-- IO-Link Safety FS Technology Parameter -->
+			<Text id="TN_V_FST_X_DiscrepancyTime" value="Discrepancy Time"/>
+			<Text id="TD_V_FST_X_DiscrepancyTime" value="Defines the functional safety relevant value for the technology specific discrepancy time."/>
+			<Text id="TN_V_FST_X_Filter" value="Filter"/>
+			<Text id="TD_V_FST_X_Filter" value="Defines the functional safety relevant value for the technology specific signal filter setting."/>
+			<!-- IO-Link Safety FS Process Data -->
+			<Text id="TN_V_FSP_SafetyCode" value="FS Safety Code"/>
+			<Text id="TD_V_FSP_SafetyCode" value="Control/Status octet and CRC."/>
+			<!-- IO-Link Safety FS Process Input Data -->
+			<Text id="TN_V_FST_X_State_1" value="FS-PD Boolean State 1"/>
+			<Text id="TN_V_FST_X_State_2" value="FS-PD Boolean State 2"/>
+			<Text id="TN_V_FST_X_State_3" value="FS-PD Boolean State 3"/>
+			<Text id="TN_V_FST_X_State_4" value="FS-PD Boolean State 4"/>
+			<Text id="TN_V_FST_X_State_5" value="FS-PD Boolean State 5"/>
+			<Text id="TN_V_FST_X_State_6" value="FS-PD Boolean State 6"/>
+			<Text id="TN_V_FST_X_State_7" value="FS-PD Boolean State 7"/>
+			<Text id="TN_V_FST_X_State_8" value="FS-PD Boolean State 8"/>
+			<Text id="TN_V_FST_X_State_9" value="FS-PD Boolean State 9"/>
+			<Text id="TN_V_FST_X_State_10" value="FS-PD Boolean State 10"/>
+			<Text id="TN_V_FST_X_State_11" value="FS-PD Boolean State 11"/>
+			<Text id="TN_V_FST_X_State_12" value="FS-PD Boolean State 12"/>
+			<Text id="TN_V_FST_X_State_13" value="FS-PD Boolean State 13"/>
+			<Text id="TD_V_FST_X_State" value="Indicates the state of the boolean status data."/>
+			<Text id="TN_SV_FST_X_State_inactive" value="Inactive"/>
+			<Text id="TN_SV_FST_X_State_active" value="Active"/>
+			<Text id="TN_V_FST_X_Integer16Value" value="FS-PD Integer 16 Value"/>
+			<Text id="TD_V_FST_X_Integer16Value" value="Shows the FS-measurement value."/>
+			<!-- IO-Link Safety non Safety Process Input Data -->
+			<Text id="TN_V_X_Revolutions" value="Revolutions"/>
+			<Text id="TD_V_X_Revolutions" value="Shows a non-safety measurement value."/>
+		</PrimaryLanguage>
+	</ExternalTextCollection>
+	<Stamp crc="3642347803"><Checker name="IODD-Checker-V2025 Review 1" version="V2025.0.1.0"/></Stamp>
+</IODevice>
