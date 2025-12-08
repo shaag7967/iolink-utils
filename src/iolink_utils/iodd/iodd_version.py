@@ -27,5 +27,5 @@ class Version:
         max_len = max(len(self.parts), len(other.parts))
         return self._padded_parts(max_len) < other._padded_parts(max_len)
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: no cover
         return f"Version({'V' + '.'.join(map(str, self.parts))})"

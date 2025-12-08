@@ -28,7 +28,7 @@ class ISDUResponse_WriteResp_M(ISDU):
             'additionalCode': self.additionalCode
         }
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return f"ISDUResponse_WriteResp_M(errorCode={self.errorCode} additionalCode={self.additionalCode} data={self.rawData.hex()})"
 
 
@@ -47,7 +47,7 @@ class ISDUResponse_WriteResp_P(ISDU):
             'valid': self.isValid
         }
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return f"ISDUResponse_WriteResp_P(data={self.rawData.hex()})"
 
 
@@ -75,7 +75,7 @@ class ISDUResponse_ReadResp_M(ISDU):
             'additionalCode': self.additionalCode
         }
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return f"ISDUResponse_ReadResp_M(errorCode={self.errorCode} additionalCode={self.additionalCode} data={self.rawData.hex()})"
 
 
@@ -92,10 +92,10 @@ class ISDUResponse_ReadResp_P(ISDU):
     def data(self) -> dict:
         return {
             'valid': self.isValid,
-            'data': self.rawData # TODO payload only
+            'data': self.rawData  # TODO payload only
         }
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return f"ISDUResponse_ReadResp_P(data={self.rawData.hex()})"
 
 

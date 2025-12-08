@@ -1,4 +1,3 @@
-import sys, os
 from typing import Union
 from datetime import datetime as dt, timedelta
 
@@ -7,10 +6,6 @@ from iolink_utils.definitions.timing import getMaxFrameTransmissionDelay_master,
 from ._octetStreamDecoderInternal import DecodingState, MessageState, DeviceMessageDecoder, MasterMessageDecoder
 from .octetStreamDecoderSettings import DecoderSettings
 from .octetStreamDecoderMessages import DeviceMessage, MasterMessage
-
-
-sys.path.append(os.path.join(os.path.dirname(__file__), 'lib'))
-
 
 
 class OctetStreamDecoder:

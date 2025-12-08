@@ -12,7 +12,7 @@ class MC(OctetDecoderBase):
         ("address", ctypes.c_uint8, 5)
     ]
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: no cover
         return f"MC({TransmissionDirection(self.read).name}, channel={CommChannel(self.channel).name}, address={self.address})"
 
 
@@ -72,7 +72,7 @@ class EventQualifier(OctetDecoderBase):
         ("instance", ctypes.c_uint8, 3)
     ]
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return (f"EventQualifier({EventMode(self.mode).name}, {EventType(self.type).name}, "
                 f"{EventSource(self.source).name}, {EventInstance(self.instance).name})")
 
@@ -82,7 +82,7 @@ class EventCode(OctetDecoderBase):
         ("code", ctypes.c_uint16)
     ]
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return f"EventCode({self.code}d / 0x{self.code:04X})"
 
 
@@ -92,7 +92,7 @@ class Event(OctetDecoderBase):
         ("code", EventCode)
     ]
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return f"Event({self.qualifier}, {self.code})"
 
 

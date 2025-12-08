@@ -40,7 +40,7 @@ class Identity:
 
         self.deviceVariants: List[DeviceVariant] = []
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return (
             f"Identity("
             f"vendorId={self.vendorId}, "

@@ -9,7 +9,7 @@ class SupportedAccessLocks:
         self.localParameterization = False
         self.localUserInterface = False
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return (
             f"SupportedAccessLocks("
             f"parameter={self.parameter}, "
@@ -26,7 +26,7 @@ class Features:
         self.profileIDs: List[ProfileID] = []
         self.supportedAccessLocks: SupportedAccessLocks = SupportedAccessLocks()
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return (
             f"Features("
             f"blockParameter={self.blockParameter}, "

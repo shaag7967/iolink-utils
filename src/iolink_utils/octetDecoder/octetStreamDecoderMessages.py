@@ -14,7 +14,7 @@ class MasterMessage:
         self.pdOut: bytearray = bytearray()
         self.od: bytearray = bytearray()
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: no cover
         elements = []
         if not self.isValid:
             elements.append('ERR')
@@ -37,7 +37,7 @@ class DeviceMessage:
         self.pdIn: bytearray = bytearray()
         self.cks: CKS = CKS()
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: no cover
         elements = []
         if not self.isValid:
             elements.append('ERR')

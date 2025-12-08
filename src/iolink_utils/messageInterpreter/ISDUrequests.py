@@ -1,8 +1,5 @@
-
 from iolink_utils.octetDecoder.octetDecoder import IService
 from iolink_utils.messageInterpreter.ISDU import IServiceNibble, FlowCtrl, ISDU
-
-
 
 
 class ISDURequest_Write8bitIdx(ISDU):
@@ -25,10 +22,10 @@ class ISDURequest_Write8bitIdx(ISDU):
         return {
             'valid': self.isValid,
             'index': self.index,
-            'data': self.rawData # TODO payload only
+            'data': self.rawData  # TODO payload only
         }
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return f"ISDURequest_Write8bitIdx(index={self.index} data={self.rawData.hex()})"
 
 
@@ -44,7 +41,7 @@ class ISDURequest_Write8bitIdxSub(ISDU):
         if finished:
             pos = 2 if self._hasExtendedLength() else 1
             self.index = int(self.rawData[pos])
-            self.subIndex = int(self.rawData[pos+1])
+            self.subIndex = int(self.rawData[pos + 1])
         return finished
 
     def name(self) -> str:
@@ -55,10 +52,10 @@ class ISDURequest_Write8bitIdxSub(ISDU):
             'valid': self.isValid,
             'index': self.index,
             'subIndex': self.subIndex,
-            'data': self.rawData # TODO payload only
+            'data': self.rawData  # TODO payload only
         }
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return f"ISDURequest_Write8bitIdxSub(index={self.index} subIndex={self.subIndex} data={self.rawData.hex()})"
 
 
@@ -73,8 +70,8 @@ class ISDURequest_Write16bitIdxSub(ISDU):
 
         if finished:
             pos = 2 if self._hasExtendedLength() else 1
-            self.index = int.from_bytes(self.rawData[pos:pos+2], byteorder='big')
-            self.subIndex = int(self.rawData[pos+2])
+            self.index = int.from_bytes(self.rawData[pos:pos + 2], byteorder='big')
+            self.subIndex = int(self.rawData[pos + 2])
         return finished
 
     def name(self) -> str:
@@ -85,10 +82,10 @@ class ISDURequest_Write16bitIdxSub(ISDU):
             'valid': self.isValid,
             'index': self.index,
             'subIndex': self.subIndex,
-            'data': self.rawData # TODO payload only
+            'data': self.rawData  # TODO payload only
         }
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return f"ISDURequest_Write16bitIdxSub(index={self.index} subIndex={self.subIndex} data={self.rawData.hex()})"
 
 
@@ -115,7 +112,7 @@ class ISDURequest_Read8bitIdx(ISDU):
             'index': self.index
         }
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return f"ISDURequest_Read8bitIdx(index={self.index} data={self.rawData.hex()})"
 
 
@@ -143,7 +140,7 @@ class ISDURequest_Read8bitIdxSub(ISDU):
             'subIndex': self.subIndex
         }
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return f"ISDURequest_Read8bitIdxSub(index={self.index} subIndex={self.subIndex} data={self.rawData.hex()})"
 
 
@@ -172,7 +169,7 @@ class ISDURequest_Read16bitIdxSub(ISDU):
             'subIndex': self.subIndex
         }
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return f"ISDURequest_Read16bitIdxSub(index={self.index} subIndex={self.subIndex} data={self.rawData.hex()})"
 
 

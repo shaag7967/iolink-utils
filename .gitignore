@@ -216,7 +216,4 @@ __marimo__/
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/vcs.xml
-/spec/IO-Device-Desc-Spec_10012_V114_Jun24_Update202507/
-/spec/IOL_CommonProfile_V12_10072_Jan2024_Update202507/
-/spec/IOL_CommonProfile_D1.2.1_02_2025-05-08/
-/spec/IODDViewer1.4/
+/spec/

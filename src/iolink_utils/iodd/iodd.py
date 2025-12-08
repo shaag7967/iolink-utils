@@ -73,7 +73,7 @@ class Iodd:
             self.physical_layer.m_sequence_capability.operateCode, self.size_PDIn, self.size_PDOut)[0]
         return ODsize_preoperate, ODsize_operate
 
-    def __str__(self):
+    def __str__(self):  # pragma: no cover
         return (
             f"IODD(\n"
             f"  {self.features}\n"
