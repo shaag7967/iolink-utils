@@ -39,22 +39,16 @@ include = [
     "/src",
 ]
 
-[tool.hatch.envs.default]
-type = "virtual"
-path = ".venv"
-
 [tool.hatch.envs.test]
 type = "virtual"
 path = ".venvtest"
+python = "3.8"
 dependencies = [
     "pytest",
     "pytest-mock",
     "pytest-html",
     "pytest-cov"
 ]
-
-[[tool.hatch.envs.test.matrix]]
-python = ["3.8", "3.11", "3.13"]
 
 [tool.pytest.ini_options]
 addopts = [
