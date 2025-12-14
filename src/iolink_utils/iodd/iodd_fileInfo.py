@@ -9,11 +9,16 @@ class IoddFileInfo:
     # <vendor name>-<device name>-<release date>-IODD<schema version>.xml
     def __init__(self, filename: str):
         path = Path(filename).resolve()
-        self.dirPath: str = str(path.parent)
         self.filename: str = str(path.name)
-        self.fullPathFilename: str = str(path)
         self.fileExists: bool = path.is_file()
-        self.sizeInBytes: int = path.stat().st_size if self.fileExists else 0
+        if self.fileExists:
+            self.dirPath: str = str(path.parent)
+            self.fullPathFilename: str = str(path)
+            self.sizeInBytes: int = path.stat().st_size
+        else:
+            self.dirPath: str = ''
+            self.fullPathFilename: str = ''
+            self.sizeInBytes: int = 0
         self.date: Optional[date] = None
         self.schemaVersion: Version = Version()
 

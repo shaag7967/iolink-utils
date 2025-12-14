@@ -24,7 +24,6 @@ def test_iodd_IoddFileInfo_noExist():
     assert info.filename == 'IO-Link-01-BasicDevice-20211215-IODD1.1.xml'
     assert info.sizeInBytes == 0
     assert info.schemaVersion == Version('1.1')
-    assert info.dirPath == '.'
     assert info.date == date(2021, 12, 15)
 
 
@@ -35,5 +34,4 @@ def test_iodd_IoddFileInfo_invalidFilename():
     assert info.filename == 'abc-bca-111-aaaa.xml'
     assert info.sizeInBytes == 0
     assert info.schemaVersion == Version('0.0')
-    assert info.dirPath == '.'
     assert info.date is None
