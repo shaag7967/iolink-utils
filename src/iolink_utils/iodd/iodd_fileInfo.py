@@ -13,7 +13,7 @@ class IoddFileInfo:
         self.filename: str = str(path.name)
         self.fullPathFilename: str = str(path)
         self.fileExists: bool = path.is_file()
-        self.sizeInBytes: int = path.stat().st_size
+        self.sizeInBytes: int = path.stat().st_size if self.fileExists else 0
         self.date: Optional[date] = None
         self.schemaVersion: Version = Version()
 
