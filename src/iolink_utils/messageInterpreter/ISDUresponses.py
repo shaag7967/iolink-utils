@@ -1,8 +1,10 @@
-from datetime import datetime as dt
-
 from iolink_utils.octetDecoder.octetDecoder import IService
 from iolink_utils.messageInterpreter.ISDU import IServiceNibble, FlowCtrl, ISDU
 
+
+#
+# WRITE
+#
 
 class ISDUResponse_WriteResp_M(ISDU):
     def __init__(self, iService: IService):
@@ -29,7 +31,8 @@ class ISDUResponse_WriteResp_M(ISDU):
         }
 
     def __str__(self):  # pragma: no cover
-        return f"ISDUResponse_WriteResp_M(errorCode={self.errorCode} additionalCode={self.additionalCode} data={self.rawData.hex()})"
+        return (f"ISDUResponse_WriteResp_M(errorCode={self.errorCode} "
+                f"additionalCode={self.additionalCode} data={self.rawData.hex()})")
 
 
 class ISDUResponse_WriteResp_P(ISDU):
@@ -50,6 +53,10 @@ class ISDUResponse_WriteResp_P(ISDU):
     def __str__(self):  # pragma: no cover
         return f"ISDUResponse_WriteResp_P(data={self.rawData.hex()})"
 
+
+#
+# READ
+#
 
 class ISDUResponse_ReadResp_M(ISDU):
     def __init__(self, iService: IService):
@@ -76,7 +83,8 @@ class ISDUResponse_ReadResp_M(ISDU):
         }
 
     def __str__(self):  # pragma: no cover
-        return f"ISDUResponse_ReadResp_M(errorCode={self.errorCode} additionalCode={self.additionalCode} data={self.rawData.hex()})"
+        return (f"ISDUResponse_ReadResp_M(errorCode={self.errorCode} "
+                f"additionalCode={self.additionalCode} data={self.rawData.hex()})")
 
 
 class ISDUResponse_ReadResp_P(ISDU):

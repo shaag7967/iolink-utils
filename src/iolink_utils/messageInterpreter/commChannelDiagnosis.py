@@ -43,8 +43,8 @@ class TransactionDiagEventMemory:
             for idx, (flag, offset) in enumerate(zip(event_flags, event_offsets), start=1):
                 if flag:
                     evt = Event.from_buffer_copy(self.eventMemory, offset)
-                    events.append((idx,
-                                   f"{EventType(evt.qualifier.type).name}{EventMode(evt.qualifier.mode).name}({evt.code.code})"))
+                    events.append((idx, f"{EventType(evt.qualifier.type).name}{EventMode(evt.qualifier.mode).name}"
+                                        f"({evt.code.code})"))
 
         return events
 
@@ -67,7 +67,7 @@ class TransactionDiagEventReset:
         return {}
 
     def __str__(self):
-        return f"Diag Reset"
+        return "Diag Reset"
 
 
 class CommChannelDiagnosis:

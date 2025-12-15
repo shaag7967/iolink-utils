@@ -1,5 +1,3 @@
-from typing import Dict
-from datetime import datetime as dt
 from enum import IntEnum
 
 from iolink_utils.octetDecoder.octetStreamDecoderMessages import DeviceMessage, MasterMessage

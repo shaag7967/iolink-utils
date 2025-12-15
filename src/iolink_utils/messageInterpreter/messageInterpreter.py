@@ -27,8 +27,7 @@ class MessageInterpreter:
         self.activeChannel: Optional[CommChannel] = CommChannel.Process
 
     def processMessage(self, message: Union[None, MasterMessage, DeviceMessage]) -> List[
-        Union[TransactionPage, TransactionDiagEventMemory, TransactionDiagEventReset, ISDU]]:
-
+            Union[TransactionPage, TransactionDiagEventMemory, TransactionDiagEventReset, ISDU]]:
         if isinstance(message, MasterMessage):
             self.activeChannel = CommChannel(message.mc.channel)
             self.channels[self.activeChannel].processMasterMessage(message)

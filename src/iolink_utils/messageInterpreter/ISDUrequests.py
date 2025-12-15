@@ -2,6 +2,10 @@ from iolink_utils.octetDecoder.octetDecoder import IService
 from iolink_utils.messageInterpreter.ISDU import IServiceNibble, FlowCtrl, ISDU
 
 
+#
+# WRITE
+#
+
 class ISDURequest_Write8bitIdx(ISDU):
     def __init__(self, iService: IService):
         super().__init__(iService)
@@ -89,7 +93,9 @@ class ISDURequest_Write16bitIdxSub(ISDU):
         return f"ISDURequest_Write16bitIdxSub(index={self.index} subIndex={self.subIndex} data={self.rawData.hex()})"
 
 
-### READ ###
+#
+# READ
+#
 
 class ISDURequest_Read8bitIdx(ISDU):
     def __init__(self, iService: IService):
