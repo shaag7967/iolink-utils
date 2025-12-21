@@ -1,6 +1,8 @@
+import pytest
 from pathlib import Path
 from iolink_utils.iodd.iodd import Iodd
 from iolink_utils.utils.version import Version
+from iolink_utils.exceptions import IoddFileNotFound, MSequenceCapabilityMissing
 
 
 def test_iodd_BasicDevice():
@@ -100,3 +102,37 @@ def test_iodd_DeviceVariants():
     assert my_iodd.identity.deviceId == 2
     assert my_iodd.identity.vendorName == "IO-Link Community"
     assert len(my_iodd.identity.deviceVariants) == 3
+
+
+def test_iodd_fileDoesNotExist():
+    test_dir = Path(__file__).parent
+
+    with pytest.raises(IoddFileNotFound):
+        my_iodd = Iodd(str(test_dir.joinpath(
+            'IODDViewer1.4_Examples/nonExistent-20211215-IODD1.1.xml')))
+
+
+def test_iodd_noPDIn_noPDOut():
+    test_dir = Path(__file__).parent
+    my_iodd = Iodd(str(test_dir.joinpath(
+        'IODDViewer1.4_Examples/IO-Link-01-BasicDevice-20211215-IODD1.1.xml')))
+
+    assert my_iodd.fileInfo.fileExists
+
+    assert len(my_iodd.processDataDefinition.keys()) == 1
+    assert None in my_iodd.processDataDefinition.keys()
+    assert None in my_iodd.processDataConditionValues
+
+    assert my_iodd.size_OnRequestData == (2, 2)
+    assert my_iodd.size_PDin == 1
+    assert my_iodd.size_PDout == 1
+
+    del my_iodd.processDataDefinition[None]['pdIn']
+    assert my_iodd.size_PDin == 0
+
+    del my_iodd.processDataDefinition[None]['pdOut']
+    assert my_iodd.size_PDout == 0
+
+    my_iodd.physicalLayer.m_sequence_capability = None  # like in IODD V1.0.1
+    with pytest.raises(MSequenceCapabilityMissing):
+        size_OnRequestData = my_iodd.size_OnRequestData

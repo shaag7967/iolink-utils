@@ -16,6 +16,7 @@ class MC(OctetDecoderBase):
         return f"MC({TransmissionDirection(self.read).name}, channel={CommChannel(self.channel).name}, address={self.address})"
 
 
+# See Figure A.2 – Checksum/M-sequence type octet
 class CKT(OctetDecoderBase):
     _fields_ = [
         ("mSeqType", ctypes.c_uint8, 2),

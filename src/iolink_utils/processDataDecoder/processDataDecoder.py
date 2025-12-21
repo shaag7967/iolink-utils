@@ -1,4 +1,4 @@
-from ._processDataDecoderInternal import _createPDDecoderClass, _safetyCodeOutFields, _safetyCodeInFields
+from iolink_utils.processDataDecoder._processDataDecoderInternal import _createPDDecoderClass, _safetyCodeOutFields, _safetyCodeInFields
 
 
 def createDecoderClass_PDIn(json_process_data_def, condition=None):

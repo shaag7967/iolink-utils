@@ -1,6 +1,6 @@
 import pytest
 
-from iolink_utils.octetDecoder.octetStreamDecoderSettings import MSeqPayloadLength, DecoderSettings
+from iolink_utils.octetStreamDecoder.octetStreamDecoderSettings import MSeqPayloadLength, DecoderSettings
 from iolink_utils.definitions.bitRate import BitRate
 
 

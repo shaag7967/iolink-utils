@@ -1,5 +1,5 @@
 from iolink_utils.octetDecoder.octetDecoder import IService
-from iolink_utils.messageInterpreter.ISDU import IServiceNibble, FlowCtrl, ISDU
+from iolink_utils.messageInterpreter.isdu.ISDU import IServiceNibble, FlowCtrl, ISDU
 
 
 #
@@ -30,6 +30,9 @@ class ISDUResponse_WriteResp_M(ISDU):
             'additionalCode': self.additionalCode
         }
 
+    def dispatch(self, handler):
+        return handler.handleISDU(self)
+
     def __str__(self):  # pragma: no cover
         return (f"ISDUResponse_WriteResp_M(errorCode={self.errorCode} "
                 f"additionalCode={self.additionalCode} data={self.rawData.hex()})")
@@ -49,6 +52,9 @@ class ISDUResponse_WriteResp_P(ISDU):
         return {
             'valid': self.isValid
         }
+
+    def dispatch(self, handler):
+        return handler.handleISDU(self)
 
     def __str__(self):  # pragma: no cover
         return f"ISDUResponse_WriteResp_P(data={self.rawData.hex()})"
@@ -82,6 +88,9 @@ class ISDUResponse_ReadResp_M(ISDU):
             'additionalCode': self.additionalCode
         }
 
+    def dispatch(self, handler):
+        return handler.handleISDU(self)
+
     def __str__(self):  # pragma: no cover
         return (f"ISDUResponse_ReadResp_M(errorCode={self.errorCode} "
                 f"additionalCode={self.additionalCode} data={self.rawData.hex()})")
@@ -102,6 +111,9 @@ class ISDUResponse_ReadResp_P(ISDU):
             'valid': self.isValid,
             'data': self.rawData  # TODO payload only
         }
+
+    def dispatch(self, handler):
+        return handler.handleISDU(self)
 
     def __str__(self):  # pragma: no cover
         return f"ISDUResponse_ReadResp_P(data={self.rawData.hex()})"
