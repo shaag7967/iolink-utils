@@ -202,7 +202,8 @@ cython_debug/
 .cursorindexingignore
 
 /spec/
-
+/traces_logs/
+/traces/
 
 
 
