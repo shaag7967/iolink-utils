@@ -1,4 +1,5 @@
 from enum import Flag, auto
+from typing import Tuple
 
 from iolink_utils.exceptions import InvalidEventMemoryAddress, InvalidEventStatusCode
 from iolink_utils.octetDecoder.octetDecoder import StatusCodeType2, EventQualifier
@@ -76,7 +77,7 @@ class EventMemory:
 
     def __init__(self):
         self._statusCode: StatusCodeType2 = StatusCodeType2()
-        self._events: tuple[Event, ...] = (
+        self._events: Tuple[Event, ...] = (
             Event(), Event(), Event(), Event(), Event(), Event()
         )
 
@@ -85,7 +86,7 @@ class EventMemory:
         return self._statusCode
 
     @property
-    def events(self) -> tuple[Event, ...]:
+    def events(self) -> Tuple[Event, ...]:
         return self._events
 
     def setMemory(self, address: int, value: int):

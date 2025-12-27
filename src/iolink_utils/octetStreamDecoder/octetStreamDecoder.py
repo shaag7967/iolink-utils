@@ -28,6 +28,10 @@ class OctetStreamDecoder:
         }
         self._maxFrameTransmissionDelay: float = self._timingConstraints[DecodingState.Idle]
 
+    @property
+    def settings(self) -> DecoderSettings:
+        return self._settings
+
     def _updateTimingConstraint(self, state: DecodingState):
         self._maxFrameTransmissionDelay = self._timingConstraints[state]
 
