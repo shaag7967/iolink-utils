@@ -106,3 +106,42 @@ def test_eventMemory_copyIsDeep():
     mem2.events[0].setCodeLSB(0xFF)
     assert mem1.events[0].code != mem2.events[0].code
 
+
+def test_event_memory_eq():
+    m1 = EventMemory()
+    m2 = EventMemory()
+
+    assert m1 == m2
+
+    m1.setMemory(0, 0x81)
+    assert m1 != m2
+
+    m2.setMemory(0, 0x81)
+    assert m1 == m2
+
+    m1.setMemory(1, 0x01)
+    assert m1 != m2
+
+    m2.setMemory(1, 0x01)
+    assert m1 == m2
+
+    m1.setMemory(2, 0x12)
+    assert m1 != m2
+
+    m2.setMemory(2, 0x12)
+    assert m1 == m2
+
+    m1.setMemory(3, 0x34)
+    assert m1 != m2
+
+    m2.setMemory(3, 0x34)
+    assert m1 == m2
+
+    m3 = m1.copy()
+    assert m3 == m1
+    assert m3 is not m1
+
+    m3.setMemory(1, 0x02)
+    assert m3 != m1
+
+    assert m1 != object()

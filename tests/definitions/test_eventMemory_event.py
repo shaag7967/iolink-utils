@@ -10,6 +10,38 @@ def test_event_initialState():
     assert not e.isComplete()
 
 
+def test_event_eq():
+    e1 = Event()
+    e2 = Event()
+    assert e1 == e2
+
+    e1.setCode(5)
+    assert e1 != e2
+
+    assert e1 != object()
+
+    e1 = Event()
+    e1.setQualifier(EventQualifier(0x05))
+    e1.setCode(0xABCD)
+
+    e2 = e1.copy()
+
+    assert e1 == e2
+    assert e1 is not e2
+
+    e1 = Event()
+    e2 = Event()
+
+    e1.setQualifier(EventQualifier(0x03))
+    e1.setCodeMSB(0x12)
+    e1.setCodeLSB(0x34)
+
+    e2.setCode(0x1234)
+    e2.setQualifier(EventQualifier(0x03))
+
+    assert e1 == e2
+
+
 def test_event_checkQualifierCopy():
     e = Event()
     q = EventQualifier(0b10101010)

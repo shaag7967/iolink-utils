@@ -14,6 +14,9 @@ class OctetDecoderBase(ctypes.BigEndianStructure):
         """Get underlying integer value (octet) when casting instance (e.g. int(myDecoder)"""
         return int.from_bytes(bytes(self), "big")
 
+    def __eq__(self, other):
+        return int(self) == int(other)
+
     def get(self) -> int:
         """Get octet as integer value"""
         return int(self)

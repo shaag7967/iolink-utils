@@ -27,7 +27,7 @@ class ISDURequest_Write8bitIdx(ISDU):
         return {
             'valid': self.isValid,
             'index': str(self.index),
-            'data': self._rawData[2:-1] if self._hasExtendedLength() else self._rawData[1:-1]
+            'data': self._rawData[3:-1] if self._hasExtendedLength() else self._rawData[2:-1]
         }
 
     def dispatch(self, handler):
@@ -60,7 +60,7 @@ class ISDURequest_Write8bitIdxSub(ISDU):
             'valid': self.isValid,
             'index': str(self.index),
             'subIndex': str(self.subIndex),
-            'data': self._rawData[3:-1] if self._hasExtendedLength() else self._rawData[1:-1]
+            'data': self._rawData[4:-1] if self._hasExtendedLength() else self._rawData[3:-1]
         }
 
     def dispatch(self, handler):
@@ -93,7 +93,7 @@ class ISDURequest_Write16bitIdxSub(ISDU):
             'valid': self.isValid,
             'index': str(self.index),
             'subIndex': str(self.subIndex),
-            'data': self._rawData[4:-1] if self._hasExtendedLength() else self._rawData[3:-1]
+            'data': self._rawData[5:-1] if self._hasExtendedLength() else self._rawData[4:-1]
         }
 
     def dispatch(self, handler):

@@ -18,11 +18,11 @@ def test_octetStreamDecoder_ctor():
     settings.operate = MSeqPayloadLength(pdOut=7, od=2, pdIn=10)
 
     decoder = OctetStreamDecoder(settings)
-    assert decoder._settings is not settings
+    assert decoder.settings is not settings
 
     settings.transmissionRate = BitRate.COM3  # change source
-    assert decoder._settings.transmissionRate == BitRate.COM2  # -> decoder has a copy
-    assert decoder._settings != settings  # we changed transmissionRate
+    assert decoder.settings.transmissionRate == BitRate.COM2  # -> decoder has a copy
+    assert decoder.settings != settings  # we changed transmissionRate
 
     assert decoder._state == DecodingState.Idle
 

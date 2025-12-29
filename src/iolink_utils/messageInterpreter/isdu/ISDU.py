@@ -5,7 +5,7 @@ from iolink_utils.definitions.iServiceNibble import IServiceNibble
 from iolink_utils.octetDecoder.octetDecoder import IService
 from iolink_utils.messageInterpreter.transaction import Transaction
 
-from .flowControl import FlowControl
+from .ISDUflowControl import FlowControl
 
 
 class ISDU(Transaction):

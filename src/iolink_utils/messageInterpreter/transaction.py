@@ -13,7 +13,7 @@ class Transaction(ABC):
         self.endTime = end
 
     @abstractmethod
-    def data(self) -> Dict:
+    def data(self) -> Dict:  # pragma: no cover
         return {}
 
     @abstractmethod

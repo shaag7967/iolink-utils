@@ -17,6 +17,15 @@ class Event:
         self._code: int = 0
         self._state = Event.InitState.CLEAR
 
+    def __eq__(self, other):
+        if not isinstance(other, Event):
+            return NotImplemented
+        return (
+                self._code == other._code
+                and self._qualifier == other._qualifier
+                and self._state == other._state
+        )
+
     @property
     def qualifier(self) -> EventQualifier:
         return self._qualifier
@@ -81,6 +90,15 @@ class EventMemory:
             Event(), Event(), Event(), Event(), Event(), Event()
         )
 
+    def __eq__(self, other):
+        if not isinstance(other, EventMemory):
+            return NotImplemented
+
+        return (
+                self.statusCode == other.statusCode
+                and self.events == other.events
+        )
+
     @property
     def statusCode(self) -> StatusCodeType2:
         return self._statusCode
@@ -91,12 +109,12 @@ class EventMemory:
 
     def setMemory(self, address: int, value: int):
         if address > 0x12:  # See Table 58 – Event memory
-            raise InvalidEventMemoryAddress(f"Address is invalid: {address} (max 0x12)")
+            raise InvalidEventMemoryAddress(f"Address is invalid: {hex(address)} (max 0x12)")
 
         if address == 0:
             self._statusCode = StatusCodeType2(value)
             if self._statusCode.details == 0:
-                raise InvalidEventStatusCode(f"StatusCodeType2 required (details == 1). Got value '{value}'")
+                raise InvalidEventStatusCode(f"StatusCodeType2 required (details == 1). Got value '{hex(value)}'")
         else:
             eventsByteAddress = address - 1
             eventNumber = int(eventsByteAddress / EventMemory.BYTES_PER_EVENT)

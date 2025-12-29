@@ -27,4 +27,4 @@ class FlowControl:
                 self.value = value
                 return
 
-        raise InvalidFlowControlValue(f"Invalid ISDU FlowControl value: {value}")
+        raise InvalidFlowControlValue(f"Invalid ISDU FlowControl value: {hex(value)}")

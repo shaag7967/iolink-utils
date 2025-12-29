@@ -37,6 +37,25 @@ def test_octetDecoder_octetDecoderBase():
     assert int(myOctet) == 0b01101010
 
 
+def test_octetDecoder_octetDecoderBase_eq():
+    class MyOctet(OctetDecoderBase):
+        _fields_ = [
+            ("field_1", ctypes.c_uint8, 5),
+            ("field_2", ctypes.c_uint8, 3)
+        ]
+
+    myOctet_A = MyOctet()
+    myOctet_B = MyOctet()
+    assert myOctet_A == myOctet_B
+
+    myOctet_A.set(3)
+    myOctet_B.set(4)
+    assert myOctet_A != myOctet_B
+
+    myOctet_B.set(3)
+    assert myOctet_A == myOctet_B
+
+
 def test_octetDecoder_octetDecoderBase_invalidValue():
     class MyOctet(OctetDecoderBase):
         _fields_ = [

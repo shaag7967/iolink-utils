@@ -4,4 +4,12 @@
 ![Python](https://img.shields.io/badge/python-3.8%20%7C%203.11%20%7C%203.13-blue)
 ![License](https://img.shields.io/github/license/shaag7967/iolink-utils.svg)
 
-**Still under development - use with caution.**
+> **Still under development - use with caution.**
+
+## Overview protocol decoder/interpreter
+
+![overview_decoder_interpreter.drawio.png](overview_decoder_interpreter.drawio.png)
+
+## Implementation details
+
+- [ctypes (OctetDecoderBase) and copy semantics](ctypesAndCopy.md)

@@ -22,6 +22,9 @@ def test_iodd_BasicDevice():
 
     assert my_iodd.isSafetyDevice() == False
 
+    assert my_iodd.features.blockParameter
+    assert my_iodd.features.dataStorage
+
     assert len(my_iodd.processDataDefinition.keys()) == 1
     assert None in my_iodd.processDataDefinition.keys()
     assert None in my_iodd.processDataConditionValues

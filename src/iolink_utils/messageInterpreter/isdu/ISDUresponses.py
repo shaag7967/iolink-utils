@@ -1,6 +1,8 @@
 from iolink_utils.exceptions import InvalidISDUService
 from iolink_utils.octetDecoder.octetDecoder import IService
 from iolink_utils.messageInterpreter.isdu.ISDU import IServiceNibble, FlowControl, ISDU
+from iolink_utils.exceptions import UnknownISDUError
+from iolink_utils.messageInterpreter.isdu.ISDUerrors import IsduError
 
 
 #
@@ -12,6 +14,7 @@ class ISDUResponse_WriteResp_M(ISDU):
         super().__init__(iService)
         self.errorCode: int = 0
         self.additionalCode: int = 0
+        self.isduError: IsduError = IsduError.UNDEFINED
 
     def appendOctets(self, flowControl: FlowControl, requestData: bytearray) -> bool:
         finished = super().appendOctets(flowControl, requestData)
@@ -19,6 +22,12 @@ class ISDUResponse_WriteResp_M(ISDU):
         if finished:
             self.errorCode = int(self._rawData[1])
             self.additionalCode = int(self._rawData[2])
+            try:
+                self.isduError = IsduError.fromCodes(self.errorCode, self.additionalCode)
+            except ValueError:
+                raise UnknownISDUError(f"Unknown ISDU error: "
+                                       f"errorCode={hex(self.errorCode)} "
+                                       f"additionalCode={hex(self.additionalCode)}") from None
         return finished
 
     def name(self) -> str:
@@ -27,8 +36,7 @@ class ISDUResponse_WriteResp_M(ISDU):
     def data(self) -> dict:
         return {
             'valid': self.isValid,
-            'errorCode': hex(self.errorCode),
-            'additionalCode': hex(self.additionalCode)
+            'error': f"{self.isduError.name}({hex(self.errorCode)}, {hex(self.additionalCode)})"
         }
 
     def dispatch(self, handler):
@@ -70,6 +78,7 @@ class ISDUResponse_ReadResp_M(ISDU):
         super().__init__(iService)
         self.errorCode: int = 0
         self.additionalCode: int = 0
+        self.isduError: IsduError = IsduError.UNDEFINED
 
     def appendOctets(self, flowControl: FlowControl, requestData: bytearray) -> bool:
         finished = super().appendOctets(flowControl, requestData)
@@ -77,6 +86,12 @@ class ISDUResponse_ReadResp_M(ISDU):
         if finished:
             self.errorCode = int(self._rawData[1])
             self.additionalCode = int(self._rawData[2])
+            try:
+                self.isduError = IsduError.fromCodes(self.errorCode, self.additionalCode)
+            except ValueError:
+                raise UnknownISDUError(f"Unknown ISDU error: "
+                                       f"errorCode={hex(self.errorCode)} "
+                                       f"additionalCode={hex(self.additionalCode)}") from None
         return finished
 
     def name(self) -> str:
@@ -85,8 +100,7 @@ class ISDUResponse_ReadResp_M(ISDU):
     def data(self) -> dict:
         return {
             'valid': self.isValid,
-            'errorCode': hex(self.errorCode),
-            'additionalCode': hex(self.additionalCode)
+            'error': f"{self.isduError.name}({hex(self.errorCode)}, {hex(self.additionalCode)})"
         }
 
     def dispatch(self, handler):
