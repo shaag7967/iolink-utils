@@ -69,3 +69,30 @@ def test_octetDecoder_octetDecoderBase_invalidValue():
     myOctet = MyOctet(0xFF)
     with pytest.raises(InvalidOctetValue):
         myOctet.set(2000)
+
+
+def test_octetDecoder_octetDecoderBase_keywordArguments():
+    class MyOctet(OctetDecoderBase):
+        _fields_ = [
+            ("field_1", ctypes.c_uint8, 5),
+            ("field_2", ctypes.c_uint8, 3)
+        ]
+
+    myOctet = MyOctet(field_1=1, field_2=2)
+    assert myOctet.field_1 == 1
+    assert myOctet.field_2 == 2
+
+    anotherOctet = myOctet.copy()
+    assert anotherOctet.field_1 == 1
+    assert anotherOctet.field_2 == 2
+
+    myOctet = MyOctet(field_2=2)
+    assert myOctet.field_1 == 0
+    assert myOctet.field_2 == 2
+
+    myOctet = MyOctet()
+    assert myOctet.field_1 == 0
+    assert myOctet.field_2 == 0
+
+    with pytest.raises(TypeError):
+        MyOctet(field_X=22)
