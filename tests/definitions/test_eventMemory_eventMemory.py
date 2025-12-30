@@ -107,7 +107,7 @@ def test_eventMemory_copyIsDeep():
     assert mem1.events[0].code != mem2.events[0].code
 
 
-def test_event_memory_eq():
+def test_eventMemory_eq():
     m1 = EventMemory()
     m2 = EventMemory()
 

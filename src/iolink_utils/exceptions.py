@@ -88,3 +88,7 @@ class UnexpectedMasterMessageReceived(IOLinkUtilsException):
 
 class UnknownISDUError(IOLinkUtilsException):
     """Raised if an unknown ISDU error was detected"""
+
+
+class ISDULengthUnknown(IOLinkUtilsException):
+    """Raised if an unknown ISDU error was detected"""
