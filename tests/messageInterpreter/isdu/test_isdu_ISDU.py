@@ -6,6 +6,7 @@ import pytest
 from iolink_utils.exceptions import InvalidISDUService
 from iolink_utils.octetDecoder.octetDecoder import IService
 from iolink_utils.definitions.iServiceNibble import IServiceNibble
+from iolink_utils.definitions.ioLinkIndex import IOLinkIndex
 from iolink_utils.messageInterpreter.isdu.ISDU import ISDU
 
 
@@ -114,3 +115,18 @@ def test_ISDU_dispatch(mocker):
     req.dispatch(handler)
 
     handler.handleISDU.assert_called_once_with(req)
+
+
+@pytest.mark.parametrize(
+    "index,expected",
+    [
+        (0, "0 / 0x0000"),
+        (4, "4 / 0x0004"),
+        (IOLinkIndex.SystemCommand.value, "2 / 0x0002 (SystemCommand)"),
+        (IOLinkIndex.ProductID.value, "19 / 0x0013 (ProductID)"),
+        (IOLinkIndex.HW_ID_Key.value, "17342 / 0x43BE (HW_ID_Key)"),
+    ],
+)
+def test_ISDU_getReadableIndexString(index, expected):
+    isdu = MyISDU()
+    assert isdu._getReadableIndexString(index) == expected

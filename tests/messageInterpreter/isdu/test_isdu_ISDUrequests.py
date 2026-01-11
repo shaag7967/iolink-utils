@@ -46,7 +46,7 @@ def test_ISDURequest_Write8bitIdx_ctor():
     assert req._service.length == 0
     d = req.data()
     assert d['valid'] == False
-    assert d['index'] == '0'
+    assert d['index'] == '0 / 0x0000'
     assert len(d['data']) == 0
 
 
@@ -58,7 +58,7 @@ def test_ISDURequest_Write8bitIdx():
     assert req.index == 1
     d = req.data()
     assert d['valid'] == True
-    assert d['index'] == '1'
+    assert d['index'] == '1 / 0x0001'
     assert d['data'] == bytearray([0x02, 0x03])
 
     # extended length
@@ -69,7 +69,7 @@ def test_ISDURequest_Write8bitIdx():
     assert req.index == 1
     d = req.data()
     assert d['valid'] == True
-    assert d['index'] == '1'
+    assert d['index'] == '1 / 0x0001'
     assert d['data'] == bytearray([0x02, 0x03])
 
     # invalid crc
@@ -80,7 +80,7 @@ def test_ISDURequest_Write8bitIdx():
     assert req.index == 1
     d = req.data()
     assert d['valid'] == False
-    assert d['index'] == '1'
+    assert d['index'] == '1 / 0x0001'
     assert d['data'] == bytearray([0x02, 0x03])
 
 
@@ -93,7 +93,7 @@ def test_ISDURequest_Write8bitIdxSub():
     assert req.subIndex == 2
     d = req.data()
     assert d['valid'] == True
-    assert d['index'] == '1'
+    assert d['index'] == '1 / 0x0001'
     assert d['subIndex'] == '2'
     assert d['data'] == bytearray([0x03, 0x04])
 
@@ -106,7 +106,7 @@ def test_ISDURequest_Write8bitIdxSub():
     assert req.subIndex == 2
     d = req.data()
     assert d['valid'] == True
-    assert d['index'] == '1'
+    assert d['index'] == '1 / 0x0001'
     assert d['subIndex'] == '2'
     assert d['data'] == bytearray([0x03, 0x04])
 
@@ -119,7 +119,7 @@ def test_ISDURequest_Write8bitIdxSub():
     assert req.subIndex == 2
     d = req.data()
     assert d['valid'] == False
-    assert d['index'] == '1'
+    assert d['index'] == '1 / 0x0001'
     assert d['subIndex'] == '2'
     assert d['data'] == bytearray([0x03, 0x04])
 
@@ -133,7 +133,7 @@ def test_ISDURequest_Write16bitIdxSub():
     assert req.subIndex == 0xCC
     d = req.data()
     assert d['valid'] == True
-    assert d['index'] == '43707'
+    assert d['index'] == '43707 / 0xAABB'
     assert d['subIndex'] == '204'
     assert d['data'] == bytearray([0x11, 0x22, 0x33, 0x44])
 
@@ -146,7 +146,7 @@ def test_ISDURequest_Write16bitIdxSub():
     assert req.subIndex == 0xCC
     d = req.data()
     assert d['valid'] == True
-    assert d['index'] == '43707'
+    assert d['index'] == '43707 / 0xAABB'
     assert d['subIndex'] == '204'
     assert d['data'] == bytearray([0x11, 0x22, 0x33, 0x44])
 
@@ -159,7 +159,7 @@ def test_ISDURequest_Write16bitIdxSub():
     assert req.subIndex == 0xCC
     d = req.data()
     assert d['valid'] == False
-    assert d['index'] == '43707'
+    assert d['index'] == '43707 / 0xAABB'
     assert d['subIndex'] == '204'
     assert d['data'] == bytearray([0x11, 0x22, 0x33, 0x44])
 
@@ -172,7 +172,7 @@ def test_ISDURequest_Read8bitIdx():
     assert req.index == 0xAA
     d = req.data()
     assert d['valid'] == True
-    assert d['index'] == '170'
+    assert d['index'] == '170 / 0x00AA'
 
     # extended length
     service = IService(service=IServiceNibble.M_ReadReq_8bitIdx, length=1)
@@ -183,7 +183,7 @@ def test_ISDURequest_Read8bitIdx():
     assert req.index == 0
     d = req.data()
     assert d['valid'] == False
-    assert d['index'] == '0'
+    assert d['index'] == '0 / 0x0000'
 
     # invalid crc
     service = IService(service=IServiceNibble.M_ReadReq_8bitIdx, length=1)
@@ -194,7 +194,7 @@ def test_ISDURequest_Read8bitIdx():
     assert req.index == 0
     d = req.data()
     assert d['valid'] == False
-    assert d['index'] == '0'
+    assert d['index'] == '0 / 0x0000'
 
 
 def test_ISDURequest_Read8bitIdxSub():
@@ -206,7 +206,7 @@ def test_ISDURequest_Read8bitIdxSub():
     assert req.subIndex == 0xBB
     d = req.data()
     assert d['valid'] == True
-    assert d['index'] == '170'
+    assert d['index'] == '170 / 0x00AA'
     assert d['subIndex'] == '187'
 
     # extended length
@@ -219,7 +219,7 @@ def test_ISDURequest_Read8bitIdxSub():
     assert req.subIndex == 0
     d = req.data()
     assert d['valid'] == False
-    assert d['index'] == '0'
+    assert d['index'] == '0 / 0x0000'
     assert d['subIndex'] == '0'
 
     # invalid crc
@@ -232,7 +232,7 @@ def test_ISDURequest_Read8bitIdxSub():
     assert req.subIndex == 0
     d = req.data()
     assert d['valid'] == False
-    assert d['index'] == '0'
+    assert d['index'] == '0 / 0x0000'
     assert d['subIndex'] == '0'
 
 
@@ -245,7 +245,7 @@ def test_ISDURequest_Read16bitIdxSub():
     assert req.subIndex == 0xCC
     d = req.data()
     assert d['valid'] == True
-    assert d['index'] == '43707'
+    assert d['index'] == '43707 / 0xAABB'
     assert d['subIndex'] == '204'
 
     # extended length
@@ -258,7 +258,7 @@ def test_ISDURequest_Read16bitIdxSub():
     assert req.subIndex == 0
     d = req.data()
     assert d['valid'] == False
-    assert d['index'] == '0'
+    assert d['index'] == '0 / 0x0000'
     assert d['subIndex'] == '0'
 
     # invalid crc
@@ -271,5 +271,5 @@ def test_ISDURequest_Read16bitIdxSub():
     assert req.subIndex == 0
     d = req.data()
     assert d['valid'] == False
-    assert d['index'] == '0'
+    assert d['index'] == '0 / 0x0000'
     assert d['subIndex'] == '0'
