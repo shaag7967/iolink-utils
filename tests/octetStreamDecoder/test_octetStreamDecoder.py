@@ -27,6 +27,28 @@ def test_octetStreamDecoder_ctor():
     assert decoder._state == DecodingState.Idle
 
 
+def test_octetStreamDecoder_setSettings():
+    initialSettings = DecoderSettings(
+        transmissionRate=BitRate("COM3"),
+        startup=MSeqPayloadLength(pdOut=1),
+    )
+    decoder = OctetStreamDecoder(initialSettings)
+
+    settings = DecoderSettings(
+        transmissionRate=BitRate("COM1"),
+        startup=MSeqPayloadLength(pdOut=5),
+    )
+
+    decoder.setSettings(settings)
+    assert decoder.settings is not settings  # we make a copy in setSettings
+    assert decoder.settings.startup is not settings.startup
+    assert decoder.settings != initialSettings
+    assert decoder.settings == settings
+
+    settings.startup = MSeqPayloadLength(pdOut=123)
+    assert decoder.settings.startup.pdOut == 5  # nothing changed (copy)
+
+
 def test_octetStreamDecoder_MSequence_startup():
     settings: DecoderSettings = DecoderSettings()
     settings.transmissionRate = BitRate.COM2
